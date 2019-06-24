@@ -1,0 +1,732 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"MealEn",
+				"MealEntry"
+			],
+			[
+				"MealEnt",
+				"MealEntryTotals"
+			],
+			[
+				"curs",
+				"cursorPosition"
+			],
+			[
+				"circl",
+				"circlePhysicsBody"
+			],
+			[
+				"onText",
+				"onChangeText"
+			],
+			[
+				"marg",
+				"marginLeft"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "src/App.js",
+			"settings":
+			{
+				"buffer_size": 172,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/MealStore.js",
+			"settings":
+			{
+				"buffer_size": 1818,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/D/Riot Games/League of Legends/Config/PersistedSettings.json",
+			"settings":
+			{
+				"buffer_size": 47821,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/MealRow.js",
+			"settings":
+			{
+				"buffer_size": 893,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "src/MealEntry.js",
+			"settings":
+			{
+				"buffer_size": 584,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "src/MealRow.css",
+			"settings":
+			{
+				"buffer_size": 111,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "src/MealEntryTotals.js",
+			"settings":
+			{
+				"buffer_size": 733,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "src/MealRowGrid.css",
+			"settings":
+			{
+				"buffer_size": 199,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "src/MealEntry.css",
+			"settings":
+			{
+				"buffer_size": 8,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "src/index.js",
+			"settings":
+			{
+				"buffer_size": 452,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/MealTable.js",
+			"settings":
+			{
+				"buffer_size": 759,
+				"line_ending": "Windows"
+			}
+		}
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"console":
+	{
+		"height": 507.0
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/C/Users/Alex/Documents/goals.txt",
+		"/D/Development/WebProjects/MealPlaner/meal-planner/src/MealTable.js",
+		"/D/Development/WebProjects/MealPlaner/meal-planner/src/Data.js",
+		"/D/Development/WebProjects/MealPlaner/meal-planner/src/MealRow.css",
+		"/D/Development/WebProjects/MealPlaner/meal-planner/public/index.html",
+		"/D/Development/WebProjects/MealPlaner/meal-planner/src/index.js",
+		"/D/Development/WebProjects/MealPlaner/meal-planner/src/SettingsPanel.txt",
+		"/D/Development/WebProjects/MealPlaner/meal-planner/src/Meal.js",
+		"/D/Development/WebProjects/MealPlaner/meal-planner/src/App.css",
+		"/D/Development/WebProjects/MealPlaner/meal-planner/public/manifest.json",
+		"/D/Development/WebProjects/MealPlaner/meal-planner/src/App.js",
+		"/D/Development/WebProjects/MealPlaner/meal-planner/src/serviceWorker.js",
+		"/D/Development/UnityProjects/GooWars/Assets/Scripts/CharacterController2D.cs",
+		"/D/Development/UnityProjects/GooWars/.gitignore",
+		"/D/Development/UnityProjects/GooWars/Assets/Scripts/HookController.cs",
+		"/D/Downloads/teeworlds-0.7.2-win32/storage.cfg",
+		"/D/Downloads/discord_backup_codes.txt",
+		"/D/Development/UnityProjects/GooWars/Assets/Material/Testing.shader",
+		"/C/Windows/System32/drivers/etc/hosts",
+		"/D/Development/UnityProjects/GooWars/Assets/Scripts/FollowTargetCamera.cs",
+		"/C/Users/Alex/AppData/Roaming/Sublime Text 2/Packages/Default/Default (Windows).sublime-keymap",
+		"/D/Development/UnityProjects/GooWars/Assets/Scripts/CharacterController.cs",
+		"/D/Riot Games/League of Legends/RADS/projects/league_client/managedfiles/0.0.0.194/Plugins/rcp-be-lol-inventory/description.json",
+		"/D/Riot Games/League of Legends/Config/PersistedSettings.json",
+		"/D/Riot Games/League of Legends/Config/game.cfg",
+		"/D/Development/WebProjects/Game/main.js",
+		"/D/Development/Godot/2d-examples/physics_platformer/tileset.tres",
+		"/D/Development/Assets/Kenney Game Assets (version 40)/Art/Platformer assets (1330 assets)/Tile extension pack (360 assets)/PNG Grass/Spritesheet/sheet.xml",
+		"/D/Downloads/village.txt/village.txt",
+		"/D/Development/WebProjects/Game/main.html",
+		"/D/Development/WebProjects/Game/pixi.min.js",
+		"/D/Development/ReactProjects/KingsCup/Avatar.js",
+		"/D/Development/ReactProjects/KingsCup/GameScreen.js",
+		"/D/Development/ReactProjects/KingsCup/cards.json",
+		"/D/Development/ReactProjects/KingsCup/StartScreen.js",
+		"/D/Development/ReactProjects/KingsCup/App.js",
+		"/D/Development/ReactProjects/KingsCup/SetupGameScreen.js",
+		"/D/Development/ReactProjects/KingsCup/SetupPlayerNamesScreen.js",
+		"/D/Downloads/pk.txt",
+		"/D/Downloads/emirates",
+		"/D/Downloads/b.txt",
+		"/D/Development/ReactProjects/KingsCup/SetupPlayerNames.js",
+		"/C/Users/Alex/AppData/Roaming/Sublime Text 2/Packages/User/JSON.sublime-settings",
+		"/C/Users/Alex/AppData/Roaming/Sublime Text 2/Packages/Default/Preferences.sublime-settings",
+		"/D/Downloads/manjaro-xfce-17.1.11-stable-x86_64.iso.sha1",
+		"/D/Development/ReactProjects/KingsCup/.expo/packager-info.json",
+		"/D/Development/ReactProjects/KingsCup/.expo/settings.json",
+		"/D/Development/ReactProjects/KingsCup/app.json",
+		"/D/Development/ReactProjects/KingsCup/README.md",
+		"/D/Development/ReactProjects/KingsCup/package.json",
+		"/D/Downloads/eff_large_wordlist.txt",
+		"/C/Users/Alex/VirtualBox VMs/Manjaro/Logs/VBoxHardening.log",
+		"/D/Downloads/dump.txt",
+		"/D/Downloads/UTC--2017-11-30T17-43-40.821Z--7947496db1d9453bf6d1641b21e5668bf1acd896",
+		"/D/Program Files (x86)/Steam/steamapps/common/Counter-Strike Global Offensive/csgo/cfg/autoexec.cfg",
+		"/D/Downloads/SDL2-2.0.7-win32-x64/README-SDL.txt",
+		"/D/Downloads/autoexec.cfg",
+		"/D/Downloads/Official_KanjiDamage_deck.apkg",
+		"/D/Downloads/BloomSample_4_0/BloomPostprocess/Content/GaussianBlur.fx",
+		"/D/Downloads/BloomSample_4_0/BloomPostprocess/BloomComponent.cs",
+		"/D/Development/MonoGameProjects/SuperDrill/SuperDrill/Content/Shaders/BloomFilter/Bloom.fx",
+		"/D/Downloads/BloomSample_4_0/BloomPostprocess/Content/BloomCombine.fx",
+		"/D/Development/XamarinProjects/settings.svg",
+		"/D/Downloads/putty-64bit-0.69-installer.msi.gpg",
+		"/D/Development/MonoGameProjects/FallingBanana/FallingBanana/Main.cs",
+		"/D/Downloads/BloomSample_4_0/BloomPostprocess/BloomSettings.cs",
+		"/D/Development/MonoGameProjects/SuperDrill/SuperDrillCore/Content/Fonts/File.spritefont",
+		"/D/Development/MonoGameProjects/FallingBanana/FallingBanana/packages.config",
+		"/D/Program Files/PuTTY/frankfurt_droplet.txt",
+		"/D/Development/WebProjects/AlphabetBackend/girlnames.csv",
+		"/D/Development/XamarinProjects/plus.svg",
+		"/D/Development/WebProjects/AlphabetBackend/AlphabetBackend/challenges.txt",
+		"/D/Development/UnityProjects/FallingBanana/.gitignore",
+		"/D/Development/UnityProjects/FallingBanana/ProjectSettings/ProjectVersion.txt",
+		"/D/Development/UnityProjects/SparklingTouch/Assets/Scripts/UpdateScore.cs",
+		"/D/Development/UnityProjects/SparklingTouch/Assets/Scripts/HitObjectBehavior.cs",
+		"/D/Development/libgdxProjects/MiracleCook/core/assets/convert.py",
+		"/C/Users/Alex/Desktop/GitHubLog.txt",
+		"/D/Development/UnityProjects/SparklingTouch/Assets/Scripts/GameManager.cs",
+		"/D/Development/UnityProjects/SparklingTouch/Assets/Scripts/Spawner.cs",
+		"/C/Users/Alex/Documents/My Games/Rocket League/TAGame/Config/TASystemSettings.ini",
+		"/D/Downloads/test.html",
+		"/D/Development/libgdxProjects/MiracleCook/.gitignore",
+		"/D/Development/libgdxProjects/MiracleCook/build.gradle",
+		"/D/Development/libgdxProjects/MiracleCook/core/assets/spritesheet_jumper.xml",
+		"/D/Downloads/4_constraints.sql",
+		"/D/Development/libgdxProjects/MiracleCook/core/assets/sprites/yellowSheet.pack",
+		"/D/Development/Assets/Kenney Game Assets (version 40)/Art/UI pack (300 assets)/Base pack (140 assets)/Spritesheet/yellowSheet.xml",
+		"/D/Development/Assets/Kenney Game Assets (version 40)/Art/UI Pack Pixel Edition (750 assets)/spritesheetInfo.txt",
+		"/D/Development/Assets/Kenney Game Assets (version 40)/Art/UI pack (300 assets)/Space pack (80 assets)/Spritesheet/uipackSpace_sheet.xml",
+		"/D/Development/libgdxProjects/MiracleCook/core/assets/spritesheet_jumper.pack",
+		"/D/Development/MonoGameProjects/HelloWorld/HelloWorld/HelloWorld/PongGame.cs",
+		"/D/Development/Assets/Kenney Game Assets (version 40)/Thanks.txt",
+		"/D/Development/libgdxProjects/MiracleCook/core/build.gradle",
+		"/D/Development/libgdxProjects/MiracleCook/desktop/build.gradle",
+		"/D/Development/libgdxProjects/MiracleCook/gradle.properties",
+		"/D/Development/libgdxProjects/MiracleCook/gradlew",
+		"/D/Development/libgdxProjects/MiracleCook/settings.gradle",
+		"/C/Program Files (x86)/Java/jdk1.7.0_71/bin/backup.txt",
+		"/D/Development/XamarinProjects/Hodomu/HodomuAndroid/Properties/AndroidManifest.xml",
+		"/D/Development/MonoGameProjects/HelloWorld/HelloWorld/HelloWorld/Ball.cs",
+		"/D/Development/MonoGameProjects/HelloWorld/HelloWorld/HelloWorld/Program.cs",
+		"/D/Development/XamarinProjects/Hodomu/Hodomu/Service/IHodomuService.cs",
+		"/D/Development/XamarinProjects/Hodomu/Hodomu/Service/ServiceLocator.cs",
+		"/D/Development/XamarinProjects/Hodomu/.gitignore",
+		"/D/Development/XamarinProjects/HodomuXamarinForms/Hodomu/Hodomu.Droid/Effects/BubbleEffect.cs",
+		"/D/Development/XamarinProjects/HodomuXamarinForms/Hodomu/Hodomu.Droid/Effects/EditorEffect.cs",
+		"/D/Development/XamarinProjects/HodomuXamarinForms/Hodomu/Hodomu.Droid/Renderers/ListViewRenderer.cs",
+		"/D/Development/XamarinProjects/HodomuXamarinForms/Hodomu/Hodomu/MainPage.xaml",
+		"/D/Development/XamarinProjects/hodomu.txt",
+		"/D/Development/XamarinProjects/Hodomu/Hodomu/Hodomu.projitems",
+		"/D/Development/XamarinProjects/Hodomu/Hodomu.sln",
+		"/D/Development/XamarinProjects/HodomuXamarinForms/Hodomu/Hodomu.Droid/Resources/drawable/bubble.xml",
+		"/C/Users/Alex/AppData/Local/Xamarin/MonoForAndroid/AndroidSDK/extras/intel/Hardware_Accelerated_Execution_Manager/silent_install_readme.txt",
+		"/D/Development/CoronaProjects/HelloWorld/build.settings",
+		"/D/Development/CoronaProjects/HelloWorld/config.lua",
+		"/D/Development/CoronaProjects/HelloWorld/viewport.lua",
+		"/D/Development/CoronaProjects/HelloWorld/drawing.svg",
+		"/D/Development/CoronaProjects/HelloWorld/main.lua",
+		"/D/Development/MonoGameProjects/HelloWorld/HelloWorld/HelloWorld/Content/Fonts/Hud.spritefont",
+		"/C/Users/Alex/AppData/Local/Temp/Hodomu.iOS_Compile_d6317229.designtime.log",
+		"/C/Users/Alex/AppData/Local/Temp/Hodomu.Droid_Compile_d679df75.designtime.log",
+		"/D/Development/MonoGameProjects/HelloWorld/HelloWorld/HelloWorld/Content/Fonts/hudFont.spritefont",
+		"/D/Development/MonoGameProjects/HelloWorld/HelloWorld/HelloWorld/Content/NewSpriteFont.spritefont",
+		"/D/Program Files.redir",
+		"/D/Development/CoronaProjects/HelloWorld/camera.lua",
+		"/D/Development/UnrealProjects/Cobra105/.gitignore.txt",
+		"/D/Downloads/enwiktionary-latest-all-titles"
+	],
+	"find":
+	{
+		"height": 34.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": true,
+		"find_history":
+		[
+			"div",
+			"{\n",
+			"proteinTotals",
+			"{title: 'Linsen', amount: 100, protein: 4.5, carbs: 11, fat: 2, fiber: 3.5},\n",
+			"{title: 'Poulet', amount: 200, protein: 50, carbs: 2, fat: 3, fiber: 0},\n		",
+			"<span>{props.item.title}</span>",
+			"}</",
+			"/>",
+			"RigidBody2D",
+			"rigidBody2D",
+			"m_Velocity",
+			"m_FacingRight",
+			"m_Rigidbody2D",
+			"x",
+			"BoolEvent",
+			"m_GroundCheck",
+			"Move",
+			".on(",
+			"on(",
+			"socket.io",
+			");\n",
+			";\n",
+			"worldPosition",
+			");\n",
+			"Vector2",
+			"';\n",
+			"Rhyme",
+			"true",
+			"import",
+			"';\n",
+			"SetBlurEffectParameters",
+			"1992",
+			"\"boy\"",
+			"argv",
+			"CSFEZ",
+			"JAVA_HOME",
+			"Temp",
+			"\"\n",
+			"error",
+			"aapt.exe",
+			"error",
+			"packaged_resource",
+			"BUILD FAILED",
+			"contentCenterX",
+			")\n",
+			"		print(rootObject.x)\n		print(rootObject.width)\n",
+			"camera",
+			"viewport",
+			"myRectAngle",
+			");\n",
+			";\n"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"Rigidbody2D",
+			"_rigidBody2D",
+			"_velocity",
+			"_facingRight",
+			"rigidBody2D",
+			"Phaser.Math.Vector2",
+			"viewport",
+			"ground"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 2,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "src/App.js",
+					"settings":
+					{
+						"buffer_size": 172,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								149,
+								149
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "src/MealStore.js",
+					"settings":
+					{
+						"buffer_size": 1818,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								665,
+								665
+							]
+						],
+						"settings":
+						{
+							"auto_name": "",
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "/D/Riot Games/League of Legends/Config/PersistedSettings.json",
+					"settings":
+					{
+						"buffer_size": 47821,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								13345,
+								13348
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 3453.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "src/MealRow.js",
+					"settings":
+					{
+						"buffer_size": 893,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								411,
+								411
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "src/MealEntry.js",
+					"settings":
+					{
+						"buffer_size": 584,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								381,
+								381
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "src/MealRow.css",
+					"settings":
+					{
+						"buffer_size": 111,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								87,
+								71
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/CSS/CSS.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "src/MealEntryTotals.js",
+					"settings":
+					{
+						"buffer_size": 733,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								47,
+								47
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "src/MealRowGrid.css",
+					"settings":
+					{
+						"buffer_size": 199,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								199,
+								199
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/CSS/CSS.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 8,
+					"file": "src/MealEntry.css",
+					"settings":
+					{
+						"buffer_size": 8,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								8,
+								8
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/CSS/CSS.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 9,
+					"file": "src/index.js",
+					"settings":
+					{
+						"buffer_size": 452,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								26,
+								26
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 10,
+					"file": "src/MealTable.js",
+					"settings":
+					{
+						"buffer_size": 759,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								458,
+								458
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 0.0
+	},
+	"input":
+	{
+		"height": 0.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 94.0
+	},
+	"replace":
+	{
+		"height": 62.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+			[
+				"mealtable",
+				"MealTable.js"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": false,
+	"side_bar_width": 150.0,
+	"status_bar_visible": true
+}

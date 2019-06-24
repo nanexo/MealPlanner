@@ -1,0 +1,19 @@
+.meal-card {
+	border: 1px solid #CCC;
+	width: 250px;
+	padding: 15px;
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	justify-items: start;
+}
+
+.meal-card > span {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.meal-card-header {
+	font-weight: bold;
+	grid-column-start: span 2;
+}
