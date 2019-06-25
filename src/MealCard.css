@@ -11,6 +11,7 @@
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
+	z-index: -40;
 }
 
 .meal-card-header {

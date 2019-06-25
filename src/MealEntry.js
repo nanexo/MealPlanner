@@ -1,5 +1,4 @@
 import React from 'react';
-import { mealStore } from './MealStore';
 import './MealEntry.css';
 
 class MealEntry extends React.Component {
