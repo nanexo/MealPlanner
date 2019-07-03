@@ -9,7 +9,6 @@ function MealEntryTotals(props) {
 		};
 	};
 
-
 	const proteinTotals = props.items.reduce(sumFunc('protein'), 0);
 	const carbTotals = props.items.reduce(sumFunc('carbs'), 0);
 	const fatTotals = props.items.reduce(sumFunc('fat'), 0);
