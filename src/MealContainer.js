@@ -26,11 +26,11 @@ class MealContainer extends React.Component {
 	}
 
 	render() {
-		const mealRows = this.state.meals.map((meal, index) => <MealCard key={meal.id} title={meal.title} id={meal.id} items={meal.meals} />)
+		const mealCards = this.state.meals.map((meal, index) => <MealCard key={meal.id} title={meal.title} id={meal.id} items={meal.meals} />)
 
 		return (
-			<div class="meal-container">
-				{mealRows}
+			<div className="meal-container">
+				{mealCards}
 			</div>
 		);
 	}

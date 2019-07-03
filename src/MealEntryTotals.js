@@ -16,9 +16,9 @@ function MealEntryTotals(props) {
 
 	return (
 		<>
-			<span>Protein:</span><span>{proteinTotals}g</span>
-			<span>Carbs:</span><span>{carbTotals}g</span>
-			<span>Fat:</span><span>{fatTotals}g</span>
+			<span>Protein:</span><span>{proteinTotals.toFixed(1)}g</span>
+			<span>Carbs:</span><span>{carbTotals.toFixed(1)}g</span>
+			<span>Fat:</span><span>{fatTotals.toFixed(1)}g</span>
 		</>
 	);
 }

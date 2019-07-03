@@ -5,7 +5,7 @@ import { mealStore } from './MealStore';
 import './MealCard.css';
 
 
-class MealRow extends React.Component {
+class MealCard extends React.Component {
 	constructor(props) {
 		super(props);
 		
@@ -21,8 +21,8 @@ class MealRow extends React.Component {
 		const mealRows = this.props.items.map((mealRow, index) => <MealEntry key={mealRow.id} id={mealRow.id} amount={mealRow.amount} title={mealStore.getFood(mealRow.foodId).title} onAmountChanged={this.onAmountChanged} />);
 
 		return (
-			<div class="meal-card">
-				<div class="meal-card-header">{this.props.title}</div>
+			<div className="meal-card">
+				<div className="meal-card-header">{this.props.title}</div>
 				<MealEntryTotals items={this.props.items} />
 				{mealRows}
 			</div>
@@ -30,4 +30,4 @@ class MealRow extends React.Component {
 	}
 }
 
-export default MealRow;
+export default MealCard;

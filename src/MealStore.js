@@ -1,6 +1,8 @@
 class MealStore {
 	#updateCallbacks = {};
 
+	#emptyFoodObject = {id: -1, title: '', protein: '', carbs: '', fat: '', fiber: '', amount: ''};
+
 	#foods = [
 		{id: 0, title: 'Poulet', protein: 25, carbs: 1, fat: 1.5, fiber: 0, amount: 100},
 		{id: 1, title: 'Eggs', protein: 13, carbs: 1, fat: 11, fiber: 0, amount: 100},
@@ -45,6 +47,10 @@ class MealStore {
 		return this.#meals;
 	}
 
+	getFoods() {
+		return this.#foods;
+	}
+
 	getFood(id) {
 		return this.#foods[id];
 	}
@@ -54,6 +60,21 @@ class MealStore {
 		const mealEntry = meal.meals.find(mealEntry => mealEntry.id === mealEntryId);
 		mealEntry.amount = amount;
 
+		this.__update();
+	}
+
+	updateFood(foodId, field, value) {
+		let food = this.#foods.find(food => food.id === foodId);
+		if(!food) {
+			food = Object.assign({}, this.#emptyFoodObject);
+			food.id = this.#foods.length;
+			this.#foods.push(food);
+		}
+		food[field] = value;
+		this.__update();
+	}
+
+	__update() {
 		for(let key in this.#updateCallbacks) {
 			this.#updateCallbacks[key]();
 		}
