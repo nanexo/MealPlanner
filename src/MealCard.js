@@ -1,33 +1,27 @@
 import React from 'react';
 import Entry from './Entry';
+import Card from './Card';
+import GridContainer from './layout/GridContainer';
 import MealEntryTotals from './MealEntryTotals';
+
 import { mealStore } from './MealStore';
-import './MealCard.css';
 
 
-class MealCard extends React.Component {
-	constructor(props) {
-		super(props);
-		
-		this.onAmountChanged = this.onAmountChanged.bind(this);
-
-	}
-
-	onAmountChanged(id, amount) {
-		mealStore.updateMealAmount(this.props.id, id, amount);
-	}
-
-	render() {
-		const mealRows = this.props.items.map((mealRow, index) => <Entry key={mealRow.id} id={mealRow.id} amount={mealRow.amount} title={mealStore.getFood(mealRow.foodId).title} onAmountChanged={this.onAmountChanged} />);
+function MealCard(props) {
+		const mealEntries = props.items.map((mealEntry, index) => {
+			const valueChanged = (field, value) => mealStore.updateMealAmount(props.id, mealEntry.id, value);
+			const foodLabel = mealStore.getFood(mealEntry.foodId).title;
+			return <Entry key={mealEntry.id} value={mealEntry.amount} label={foodLabel} onValueChanged={valueChanged} />;
+		});
 
 		return (
-			<div className="meal-card">
-				<div className="meal-card-header">{this.props.title}</div>
-				<MealEntryTotals items={this.props.items} />
-				{mealRows}
-			</div>
+			<Card title={props.title}>
+				<GridContainer columns={2}>
+					<MealEntryTotals items={props.items} />
+					{mealEntries}
+				</GridContainer>
+			</Card>
 		);
-	}
 }
 
 export default MealCard;
