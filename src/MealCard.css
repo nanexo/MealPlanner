@@ -4,7 +4,6 @@
 	padding: 15px;
 	display: grid;
 	grid-template-columns: 1fr 1fr;
-	justify-items: start;
 	align-content: start;
 }
 
@@ -12,7 +11,6 @@
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
-	z-index: -40;
 }
 
 .meal-card-header {

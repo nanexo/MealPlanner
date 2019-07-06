@@ -1,5 +1,5 @@
 import React from 'react';
-import MealEntry from './MealEntry';
+import Entry from './Entry';
 import MealEntryTotals from './MealEntryTotals';
 import { mealStore } from './MealStore';
 import './MealCard.css';
@@ -18,7 +18,7 @@ class MealCard extends React.Component {
 	}
 
 	render() {
-		const mealRows = this.props.items.map((mealRow, index) => <MealEntry key={mealRow.id} id={mealRow.id} amount={mealRow.amount} title={mealStore.getFood(mealRow.foodId).title} onAmountChanged={this.onAmountChanged} />);
+		const mealRows = this.props.items.map((mealRow, index) => <Entry key={mealRow.id} id={mealRow.id} amount={mealRow.amount} title={mealStore.getFood(mealRow.foodId).title} onAmountChanged={this.onAmountChanged} />);
 
 		return (
 			<div className="meal-card">

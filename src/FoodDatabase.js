@@ -1,6 +1,7 @@
 import React from 'react';
 import { mealStore } from './MealStore';
 import HorizontalContainer from './layout/HorizontalContainer';
+import DockContainer from './layout/DockContainer';
 import Card from './Card';
 import FoodCard from './FoodCard';
 
@@ -29,10 +30,13 @@ class FoodDatabase extends React.Component {
 
 	render() {
 		const cards = this.state.foods.map((food, index) => <Card title={food.title}><FoodCard food={food} /></Card>);
+		const centerContent = <HorizontalContainer>{cards}</HorizontalContainer>;
+		const newCard = <Card title="New" />
 		return (
-			<HorizontalContainer>
-				{cards}
-			</HorizontalContainer>
+			<DockContainer
+				left={centerContent}
+				center={newCard}
+				/>
 		);
 	}
 

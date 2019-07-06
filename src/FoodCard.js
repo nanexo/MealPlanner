@@ -1,7 +1,10 @@
 import React from 'react';
+import Entry from './Entry';
+import { mealStore } from './MealStore';
 
 function FoodCard(props) {
-	const inflateRow = (name) => <div><span>{name}:</span><span>{props.food[name]}</span></div>;
+	const callback = (name, value) => mealStore.updateFood(props.food.id, name, value);
+	const inflateRow = (name, index) => <div><Entry key={index} id={name} title={name} amount={props.food[name]} onAmountChanged={callback} /></div>;
 
 	return ['protein', 'carbs', 'fat', 'amount'].map(inflateRow);
 }
