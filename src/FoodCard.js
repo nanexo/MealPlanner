@@ -10,7 +10,7 @@ function FoodCard(props) {
 	const entries = ['protein', 'carbs', 'fat', 'amount'].map(inflateEntries);
 
 	return (
-		<GridContainer columns={2}>
+		<GridContainer columns="1fr auto">
 			{entries}
 		</GridContainer>
 	)

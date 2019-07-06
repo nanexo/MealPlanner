@@ -5,7 +5,7 @@ class MealStore {
 
 	#foods = [
 		{id: 0, title: 'Poulet', protein: 25, carbs: 1, fat: 1.5, fiber: 0, amount: 100},
-		{id: 1, title: 'Eggs', protein: 13, carbs: 1, fat: 11, fiber: 0, amount: 100},
+		{id: 1, title: 'Eier', protein: 13, carbs: 1, fat: 11, fiber: 0, amount: 100},
 		{id: 2, title: 'Linsen', protein: 4.5, carbs: 11, fat: 2, fiber: 3.5, amount: 100},
 		{id: 3, title: 'Kopfsalat', protein: 1, carbs: 1, fat: 0.2, fiber: 1.5, amount: 100},
 		{id: 4, title: 'Schweizer Gemuesemischung', protein: 2, carbs: 8, fat: 0.5, fiber: 3, amount: 100},

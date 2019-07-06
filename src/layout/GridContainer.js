@@ -3,8 +3,7 @@ import './GridContainer.css';
 
 function GridContainer(props) {
 	const style = {
-		gridTemplateColumns: Array(props.columns).fill('1fr').join(' ')
-
+		gridTemplateColumns: props.columns
 	};
 	return <div className="grid-container" style={style}>{props.children}</div>
 }

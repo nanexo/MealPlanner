@@ -16,7 +16,7 @@ function MealCard(props) {
 
 		return (
 			<Card title={props.title}>
-				<GridContainer columns={2}>
+				<GridContainer columns="1fr auto">
 					<MealEntryTotals items={props.items} />
 					{mealEntries}
 				</GridContainer>

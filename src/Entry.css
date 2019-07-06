@@ -1,2 +1,16 @@
 span {
 }
+
+input {
+	border: none;
+	border-bottom: 1px solid transparent;
+	font: inherit;
+}
+
+input:hover {
+	border-bottom: 1px solid #ddd;
+}
+
+input:focus {
+	border-bottom: 1px solid #bbb
+}
