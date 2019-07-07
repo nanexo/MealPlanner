@@ -1,16 +1,15 @@
-span {
-}
-
 input {
 	border: none;
-	border-bottom: 1px solid transparent;
 	font: inherit;
 }
 
-input:hover {
+input.field {
+	border-bottom: 1px solid transparent;
+}
+input.field:hover {
 	border-bottom: 1px solid #ddd;
 }
 
-input:focus {
+input.field:focus {
 	border-bottom: 1px solid #bbb
 }

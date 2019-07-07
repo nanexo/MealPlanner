@@ -34,11 +34,17 @@ class FoodDatabase extends React.Component {
 		if(!!this.state.filterText) {
 			foods = foods.filter((food) => food.title.startsWith(this.state.filterText));
 		}
-		const cards = foods.map((food, index) => <Card key={food.id} title={food.title}><FoodCard food={food} /></Card>);
+
+		const cards = foods.map((food, index) => {
+			const onHeaderChanged = (field, value) => mealStore.updateFood(food.id, 'title', value);
+			return <Card key={food.id} title={food.title} editableTitle={true} onHeaderChanged={onHeaderChanged}><FoodCard food={food} /></Card>
+		});
 		const centerContent = <HorizontalContainer>{cards}</HorizontalContainer>;
-		const newCard = <Card title="New" />
 
 		const onFilterValueChanged = (field, value) => this.setState({filterText: value});
+
+		const onNewHandler = () => mealStore.addFood();
+		const newCard = <Card title="New" onClickHandler={onNewHandler} />
 
 		const topContent = (
 			<DockContainer

@@ -11,8 +11,8 @@ function Entry(props) {
 
 	return (
 		<>
-			<span>{props.label}</span>
-			<input type="text" value={value} onChange={handleValueChanged} size={props.size || 3} />
+			{!!props.label ? <span>{props.label}</span> : null}
+			<input type="text" placeholder={props.placeholder} className={props.appearance} value={value} onChange={handleValueChanged} size={props.size || 3} />
 		</>
 	);
 }

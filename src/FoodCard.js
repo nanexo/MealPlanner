@@ -5,7 +5,7 @@ import { mealStore } from './MealStore';
 
 function FoodCard(props) {
 	const valueChanged = (field, value) => mealStore.updateFood(props.food.id, field, value);
-	const inflateEntries = (name, index) => <Entry key={index} field={name} label={name} value={props.food[name]} onValueChanged={valueChanged} />;
+	const inflateEntries = (name, index) => <Entry key={index} field={name} label={name} appearance="field" value={props.food[name]} onValueChanged={valueChanged} />;
 
 	const entries = ['protein', 'carbs', 'fat', 'amount'].map(inflateEntries);
 

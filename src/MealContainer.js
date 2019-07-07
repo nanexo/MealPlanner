@@ -1,5 +1,7 @@
 import React from 'react';
 import MealCard from './MealCard';
+import Card from './Card';
+import DockContainer from './layout/DockContainer';
 import { mealStore } from './MealStore';
 import './MealContainer.css';
 
@@ -27,11 +29,17 @@ class MealContainer extends React.Component {
 
 	render() {
 		const mealCards = this.state.meals.map((meal, index) => <MealCard key={meal.id} title={meal.title} id={meal.id} items={meal.meals} />)
+		const mealContainer = <div className="meal-container">{mealCards}</div>;
 
+		const onNewClickHandler = () => mealStore.addMeal();
+
+		const newMealCard = <Card title="New" onClickHandler={onNewClickHandler} />
 		return (
-			<div className="meal-container">
-				{mealCards}
-			</div>
+			<DockContainer
+				left={mealContainer}
+				center={newMealCard}
+				/>
+			
 		);
 	}
 
