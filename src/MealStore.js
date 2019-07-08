@@ -1,10 +1,10 @@
 class MealStore {
-	#updateCallbacks = {};
+	__updateListeners = [];
 
-	#emptyFoodObject = {id: -1, title: '', protein: '', carbs: '', fat: '', fiber: '', amount: ''};
-	#emptyMealObject = {id: -1, title: '', meals: []};
+	__emptyFoodObject = {id: -1, title: '', protein: '', carbs: '', fat: '', fiber: '', amount: ''};
+	__emptyMealObject = {id: -1, title: '', meals: []};
 
-	#foods = [
+	__foods = [
 		{id: 0, title: 'Poulet', protein: 25, carbs: 1, fat: 1.5, fiber: 0, amount: 100},
 		{id: 1, title: 'Eier', protein: 13, carbs: 1, fat: 11, fiber: 0, amount: 100},
 		{id: 2, title: 'Linsen', protein: 4.5, carbs: 11, fat: 2, fiber: 3.5, amount: 100},
@@ -15,7 +15,7 @@ class MealStore {
 	]
 
 
-	#meals = [
+	__meals = [
 		{
 			id: 0,
 			title: 'Lunch', 
@@ -45,19 +45,19 @@ class MealStore {
 	]
 
 	getMeals() {
-		return this.#meals;
+		return this.__meals;
 	}
 
 	getFoods() {
-		return this.#foods;
+		return this.__foods;
 	}
 
 	getFood(id) {
-		return this.#foods[id];
+		return this.__foods[id];
 	}
 
 	updateMealAmount(mealId, mealEntryId, amount) {
-		const meal = this.#meals.find(meal => meal.id === mealId);
+		const meal = this.__meals.find(meal => meal.id === mealId);
 		const mealEntry = meal.meals.find(mealEntry => mealEntry.id === mealEntryId);
 		mealEntry.amount = amount;
 
@@ -65,7 +65,7 @@ class MealStore {
 	}
 
 	updateFood(foodId, field, value) {
-		let food = this.#foods.find(food => food.id === foodId);
+		let food = this.__foods.find(food => food.id === foodId);
 		if(field === "protein" || field === "carbs" || field === "fat") {
 			value = parseFloat(value)
 		}
@@ -74,33 +74,29 @@ class MealStore {
 	}
 
 	addFood() {
-		let newFood = Object.assign({}, this.#emptyFoodObject);
-		newFood.id = this.#foods.length;
-		this.#foods.push(newFood);
+		let newFood = Object.assign({}, this.__emptyFoodObject);
+		newFood.id = this.__foods.length;
+		this.__foods.push(newFood);
 		this.__update();
 	}
 
 	addMeal() {
-		let newMeal = Object.assign({}, this.#emptyMealObject);
-		newMeal.id = this.#meals.length;
-		this.#meals.push(newMeal);
+		let newMeal = Object.assign({}, this.__emptyMealObject);
+		newMeal.id = this.__meals.length;
+		this.__meals.push(newMeal);
 		this.__update();
 	}
 
 	__update() {
-		for(let key in this.#updateCallbacks) {
-			this.#updateCallbacks[key]();
-		}
+		this.__updateListeners.forEach(listeners => listeners());
 	}
 
-	addUpdateCallback(f) {
-		const uuid = crypto.getRandomValues(new Uint32Array(4)).join('-');
-		this.#updateCallbacks[uuid] = f;
+	addUpdateListener(func) {
+		this.__updateListeners.push(func);
 	}
 
-	removeUpdateCallback(uuid) {
-		this.#updateCallbacks[uuid] = null;
-		delete this.#updateCallbacks[uuid];
+	removeUpdateListener(func) {
+		this.__updateListeners = this.__updateListeners.filter(listener => listener === func);
 	}
 }
 
