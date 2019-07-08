@@ -7,11 +7,11 @@ import './CalorieDisplay.css';
 
 
 function CalorieDisplay(props) {
-	const cals = props.food.protein * 4 + props.food.carbs * 4 + props.food.fat * 9;
+	const cals = props.data.protein * 4 + props.data.carbs * 4 + props.data.fat * 9;
 	const data = [
-		{group: 'Protein', value: props.food.protein},
-		{group: 'Carbs', value: props.food.carbs},
-		{group: 'Fat', value: props.food.fat}
+		{group: 'Protein', value: props.data.protein},
+		{group: 'Carbs', value: props.data.carbs},
+		{group: 'Fat', value: props.data.fat}
 	];
 	const colors = ['#0088FE', '#00C49F', '#FFBB28'];
 

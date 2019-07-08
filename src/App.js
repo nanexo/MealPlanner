@@ -8,7 +8,7 @@ function App() {
 	return (
 		<DockContainer
 			center={<MealContainer />}
-			bottom={<FoodDatabase />}
+			right={<FoodDatabase />}
 		/>
 	);
 }

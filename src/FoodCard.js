@@ -9,7 +9,7 @@ function FoodCard(props) {
 
 	return (
 		<div className="food-card-wrapper">
-			<div className="food-card-cals-display"><CalorieDisplay food={props.food} size={160} /></div>
+			<div className="food-card-cals-display"><CalorieDisplay data={props.food} size={160} /></div>
 			<div className="food-card-protein-input">
 				<Entry field="protein" value={props.food.protein} appearance="foodentry" autoWidth={true} onValueChanged={onMacroChanged} />
 				<span>g</span>

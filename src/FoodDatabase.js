@@ -1,17 +1,15 @@
 import React from 'react';
 import { mealStore } from './MealStore';
-import HorizontalContainer from './layout/HorizontalContainer';
-import DockContainer from './layout/DockContainer';
 import Card from './Card';
 import FoodCard from './FoodCard';
 import Entry from './Entry';
+import './FoodDatabase.css';
 
 class FoodDatabase extends React.Component {
 	constructor(props) {
 		super(props);
 
 		this.state = {foods: mealStore.getFoods(), filterText: ''};
-		this.trackedData = ['title', 'protein', 'carbs', 'fat', 'amount'];
 		
 		this.onUpdate = this.onUpdate.bind(this);
 	}
@@ -39,26 +37,17 @@ class FoodDatabase extends React.Component {
 			const onHeaderChanged = (field, value) => mealStore.updateFood(food.id, 'title', value);
 			return <Card key={food.id} title={food.title} editableTitle={true} onHeaderChanged={onHeaderChanged}><FoodCard food={food} /></Card>
 		});
-		const centerContent = <HorizontalContainer>{cards}</HorizontalContainer>;
 
 		const onFilterValueChanged = (field, value) => this.setState({filterText: value});
 
-		const onNewHandler = () => mealStore.addFood();
-		const newCard = <Card title="New" onClickHandler={onNewHandler} />
-
-		const topContent = (
-			<DockContainer
-				center={<h2>Database</h2>}
-				right={<Entry label="Filter" onValueChanged={onFilterValueChanged} />}
-				/>
-		);
-
 		return (
-			<DockContainer
-				top={topContent}
-				left={centerContent}
-				center={newCard}
-				/>
+			<div className="food-database">
+				<div className="food-database-title">Database</div>
+				<div className="food-database-filter"><Entry placeholder="Filter" value={this.state.filterText} onValueChanged={onFilterValueChanged} /></div>
+				<div className="food-database-list">
+					{cards}
+				</div>
+			</div>
 		);
 	}
 
