@@ -1,18 +1,31 @@
 import React from 'react';
 import Entry from './Entry';
-import GridContainer from './layout/GridContainer';
+import CalorieDisplay from './CalorieDisplay';
 import { mealStore } from './MealStore';
+import './FoodCard.css';
 
 function FoodCard(props) {
-	const valueChanged = (field, value) => mealStore.updateFood(props.food.id, field, value);
-	const inflateEntries = (name, index) => <Entry key={index} field={name} label={name} appearance="field" value={props.food[name]} onValueChanged={valueChanged} />;
-
-	const entries = ['protein', 'carbs', 'fat', 'amount'].map(inflateEntries);
+	const onMacroChanged = (field, value) => mealStore.updateFood(props.food.id, field, value);
 
 	return (
-		<GridContainer columns="1fr auto">
-			{entries}
-		</GridContainer>
+		<div className="food-card-wrapper">
+			<div className="food-card-cals-display"><CalorieDisplay food={props.food} size={160} /></div>
+			<div className="food-card-protein-input">
+				<Entry field="protein" value={props.food.protein} appearance="foodentry" autoWidth={true} onValueChanged={onMacroChanged} />
+				<span>g</span>
+			</div>
+			<div className="food-card-protein-label">Protein</div>
+			<div className="food-card-carbs-input">
+				<Entry field="carbs" value={props.food.carbs} appearance="foodentry" autoWidth={true} onValueChanged={onMacroChanged} />
+				<span>g</span>
+			</div>
+			<div className="food-card-carbs-label">Carbs</div>
+			<div className="food-card-fat-input">
+				<Entry field="fat" value={props.food.fat} appearance="foodentry" autoWidth={true} onValueChanged={onMacroChanged} />
+				<span>g</span>
+			</div>
+			<div className="food-card-fat-label">Fat</div>
+		</div>
 	)
 }
 

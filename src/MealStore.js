@@ -66,6 +66,9 @@ class MealStore {
 
 	updateFood(foodId, field, value) {
 		let food = this.#foods.find(food => food.id === foodId);
+		if(field === "protein" || field === "carbs" || field === "fat") {
+			value = parseFloat(value)
+		}
 		food[field] = value;
 		this.__update();
 	}

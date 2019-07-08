@@ -1,0 +1,44 @@
+.food-card-wrapper {
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+	grid-template-rows: 1fr 1.5em auto auto;
+	grid-template-areas: 
+		"cals-display cals-display cals-display"
+		"spacer spacer spacer"
+		"protein-input carbs-input fat-input"
+		"protein-label carbs-label fat-label";
+
+	justify-items: center;
+	font-size: 1.4em;
+}
+
+.food-card-cals-display {
+	grid-area: cals-display;
+}
+
+.food-card-protein-input {
+	grid-area: protein-input;
+}
+
+.food-card-protein-label {
+	grid-area: protein-label;
+	font-size: 0.85em;
+}
+
+.food-card-carbs-input {
+	grid-area: carbs-input;
+}
+
+.food-card-carbs-label {
+	grid-area: carbs-label;
+	font-size: 0.85em;
+}
+
+.food-card-fat-input {
+	grid-area: fat-input;
+}
+
+.food-card-fat-label {
+	grid-area: fat-label;
+	font-size: 0.85em;
+}

@@ -13,3 +13,18 @@ input.field:hover {
 input.field:focus {
 	border-bottom: 1px solid #bbb
 }
+
+input.foodentry {
+	width: 2em;
+	border: none;
+	font: inherit;
+	text-align: right;
+}
+
+input.foodentry:hover {
+	color: #ccc;
+}
+
+input.foodentry:focus {
+	color: inherit;
+}

@@ -9,10 +9,15 @@ function Entry(props) {
 		props.onValueChanged(props.field, event.target.value);
 	}
 
+	let style = null;
+	if(props.autoWidth) {
+		style = {width: (''+(value||1)).length + 'ch'};
+	}
+
 	return (
 		<>
 			{!!props.label ? <span>{props.label}</span> : null}
-			<input type="text" placeholder={props.placeholder} className={props.appearance} value={value} onChange={handleValueChanged} size={props.size || 3} />
+			<input type="text" placeholder={props.placeholder} className={props.appearance} style={style} value={value} onChange={handleValueChanged} size={props.size || 3} />
 		</>
 	);
 }
