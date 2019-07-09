@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import MealCard from './MealCard';
-import Card from './Card';
-import DockContainer from './layout/DockContainer';
 import { mealStore } from './MealStore';
 import './MealContainer.css';
 
@@ -15,16 +13,12 @@ function MealContainer(props) {
 	}, []);
 
 	const mealCards = state.meals.map((meal, index) => <MealCard key={meal.id} title={meal.title} id={meal.id} items={meal.meals} />)
-	const mealContainer = <div className="meal-container">{mealCards}</div>;
-
-	const onNewClickHandler = () => mealStore.addMeal();
-
-	const newMealCard = <Card title="New" onClickHandler={onNewClickHandler} />
+	
 	return (
-		<DockContainer
-			left={mealContainer}
-			center={newMealCard}
-			/>
+		<div className="meal-container">
+			<div className="meal-container-title">Meals</div>
+			<div className="meal-container-list">{mealCards}</div>
+		</div>
 	);
 }
 

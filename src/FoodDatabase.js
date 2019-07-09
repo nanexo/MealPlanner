@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import { mealStore } from './MealStore';
 import Card from './Card';
-import FoodCard from './FoodCard';
+import MacrosPanel from './MacrosPanel';
 import Entry from './Entry';
 import './FoodDatabase.css';
 
@@ -22,7 +22,8 @@ function FoodDatabase(props) {
 
 	const cards = filteredFoods.map((food, index) => {
 		const onHeaderChanged = (field, value) => mealStore.updateFood(food.id, 'title', value);
-		return <Card key={food.id} title={food.title} editableTitle={true} onHeaderChanged={onHeaderChanged}><FoodCard food={food} /></Card>
+		const onMacroChanged = (field, value) => mealStore.updateFood(food.id, field, value);
+		return <Card key={food.id} title={food.title} editableTitle={true} onHeaderChanged={onHeaderChanged}><MacrosPanel data={food} onMacroChanged={onMacroChanged} /></Card>
 	});
 
 	const onFilterValueChanged = (field, value) => setFilterText(value);

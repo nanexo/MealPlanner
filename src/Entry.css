@@ -1,6 +1,7 @@
 input {
 	border: none;
 	font: inherit;
+	background-color: inherit;
 }
 
 input.field {

@@ -1,0 +1,37 @@
+.meal-card-wrapper {
+	display: grid;
+	grid-template-rows: [macro-panel] auto [divider] 1px [meal-card-items] 1fr;
+	grid-row-gap: 1em;
+}
+
+.meal-card-macro-panel {
+	grid-row: macro-panel;
+}
+
+.meal-card-divider {
+	grid-row: divider;
+	background: #CCC;
+}
+
+.meal-card-items {
+	grid-row: meal-card-items;
+}
+
+.meal-card-line {
+	display: grid;
+	grid-template-columns: [meal-card-label] 1fr [meal-card-input] auto;
+	font-size: 1.25em;
+	line-height: 2.25em;
+	padding: 0 1.3em;
+}
+.meal-line-odd {
+	background-color: rgba(0, 0, 0, 0.02);
+}
+
+.meal-card-food-label {
+	grid-column: meal-card-label;
+}
+
+.meal-card-food-amount {
+	grid-column: meal-card-input;
+}
