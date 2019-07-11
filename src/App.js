@@ -39,7 +39,7 @@ const useStyles = makeStyles(theme => ({
 function App() {
 	const classes = useStyles();
 	const [state, setState] = useState({
-		selectedTab: 0,
+		selectedTab: 1,
 		foods: mealStore.getFoods(),
 		meals: mealStore.getMeals()
 	});
@@ -53,7 +53,7 @@ function App() {
 
 	const renderedContent = state.selectedTab === 0 ?
 		<FoodDatabase onFoodPropertyChanged={onFoodPropertyChanged} items={state.foods} /> :
-		<MealContainer />;
+		<MealContainer items={state.meals} />;
 
 	return (
 		<React.Fragment>

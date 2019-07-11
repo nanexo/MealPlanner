@@ -1,36 +1,50 @@
 import React from 'react';
-import Entry from './Entry';
 import CalorieDisplay from './CalorieDisplay';
-import './MacrosPanel.css';
+
+import { Grid, Typography } from '@material-ui/core';
 
 function MacrosPanel(props) {
-	const editableMacros = !!props.onMacroChanged;
-
-	const getMacroElement = (macro) => editableMacros ?
-		<Entry field={macro} value={props.data[macro]} appearance="foodentry" autoWidth={true} onValueChanged={props.onMacroChanged} /> :
-		<span>{props.data[macro]}</span>;
-
 	return (
-		<div className="macros-panel-wrapper">
-			<div className="macros-panel-cals-display"><CalorieDisplay data={props.data} size={160} /></div>
-			<div className="macros-panel-protein-input">
-				{getMacroElement('protein')}
-				<span>g</span>
-			</div>
-			<div className="macros-panel-protein-label">Protein</div>
-			<div className="macros-panel-carbs-input">
-				{getMacroElement('carbs')}
-				<span>g</span>
-			</div>
-			<div className="macros-panel-carbs-label">Carbs</div>
-			<div className="macros-panel-fat-input">
-				{getMacroElement('fat')}
-				
-				<span>g</span>
-			</div>
-			<div className="macros-panel-fat-label">Fat</div>
-		</div>
-	)
+		<Grid container direction="column" spacing={3}>
+			<Grid container item justify="center">
+				<Grid item>
+					<CalorieDisplay data={props.data} size={props.size || 160} />
+				</Grid>
+			</Grid>
+			<Grid container item>
+				<Grid container item xs={4} justify="center">
+					<Grid item>
+						<Typography>{props.data.protein}g</Typography>
+					</Grid>
+				</Grid>
+				<Grid container item xs={4} justify="center">
+					<Grid item>
+						<Typography>{props.data.carbs}g</Typography>
+					</Grid>
+				</Grid>
+				<Grid container item xs={4} justify="center">
+					<Grid item>
+						<Typography>{props.data.fat}g</Typography>
+					</Grid>
+				</Grid>
+				<Grid container item xs={4} justify="center">
+					<Grid item>
+						<Typography>Protein</Typography>
+					</Grid>
+				</Grid>
+				<Grid container item xs={4} justify="center">
+					<Grid item>
+						<Typography>Carbs</Typography>
+					</Grid>
+				</Grid>
+				<Grid container item xs={4} justify="center">
+					<Grid item>
+						<Typography>Fat</Typography>
+					</Grid>
+				</Grid>
+			</Grid>
+		</Grid>
+	);
 }
 
 export default MacrosPanel;

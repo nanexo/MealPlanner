@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 
-import { Grid, Typography, TextField, InputAdornment } from '@material-ui/core';
+import { Grid, TextField, InputAdornment } from '@material-ui/core';
 
 import CalorieDisplay from './CalorieDisplay';
 
@@ -17,7 +17,6 @@ function FoodDetailPanel(props) {
 	const classes = useStyles();
 
 	const createHandler = name => event => props.onFoodPropertyChanged(props.item.id, name, event.target.value);
-
 
 	return (
 		<Grid container direction="column" spacing={3} className={classes.root}>
