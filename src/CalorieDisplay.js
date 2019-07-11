@@ -3,6 +3,8 @@ import {
   PieChart, Pie, Cell
 } from 'recharts';
 
+import { Typography } from '@material-ui/core';
+
 import './CalorieDisplay.css';
 
 
@@ -44,8 +46,8 @@ function CalorieDisplay(props) {
 					</Pie>
 				</PieChart>
 			</div>
-			<div className="calorie-display-count">{cals.toFixed(1)}</div>
-			<div className="calorie-display-label">Calories</div>
+			<div className="calorie-display-count"><Typography variant="h4">{cals.toFixed(1)}</Typography></div>
+			<div className="calorie-display-label"><Typography variant="h6">Calories</Typography></div>
 		</div>
 	)
 }

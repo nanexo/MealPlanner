@@ -12,7 +12,7 @@ function MealCard(props) {
 			const valueChanged = (field, value) => mealStore.updateMealAmount(props.id, mealEntry.id, value);
 			const foodLabel = mealStore.getFood(mealEntry.foodId).title;
 			return (
-				<div className={`meal-card-line ${index % 2 === 1 ? 'meal-line-odd' : ''}`}>
+				<div key={mealEntry.id} className={`meal-card-line ${index % 2 === 1 ? 'meal-line-odd' : ''}`}>
 					<span className="meal-card-food-label">{foodLabel}</span>
 					<div className="meal-card-food-amount">
 						<Entry key={mealEntry.id} value={mealEntry.amount} appearance="foodentry" autoWidth onValueChanged={valueChanged} /><span>g</span>

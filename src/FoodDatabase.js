@@ -1,41 +1,46 @@
-import React, {useState, useEffect} from 'react';
-import { mealStore } from './MealStore';
-import Card from './Card';
-import MacrosPanel from './MacrosPanel';
-import Entry from './Entry';
-import './FoodDatabase.css';
+import React, { useState } from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import FoodList from './FoodList';
+import FoodDetailPanel from './FoodDetailPanel';
 
-function FoodDatabase(props) {
-	const [state, setState] = useState({foods: mealStore.getFoods()});
-	const [filterText, setFilterText] = useState('');
+import { Paper, Grid, Divider } from '@material-ui/core';
 
-	useEffect(() => {
-		let onUpdate = () => setState({foods: mealStore.getFoods()});
-		mealStore.addUpdateListener(onUpdate);
-		return () => mealStore.removeUpdateListener(onUpdate);
-	}, []);
+const useStyles = makeStyles(theme => ({
+	root: {
+		width: 600
+	},
 
-	let filteredFoods = state.foods;
-	if(!!filterText) {
-		filteredFoods = state.foods.filter((food) => food.title.startsWith(filterText));
+	divider: {
+		width: 1,
+		height: '100%'
 	}
 
-	const cards = filteredFoods.map((food, index) => {
-		const onHeaderChanged = (field, value) => mealStore.updateFood(food.id, 'title', value);
-		const onMacroChanged = (field, value) => mealStore.updateFood(food.id, field, value);
-		return <Card key={food.id} title={food.title} editableTitle={true} onHeaderChanged={onHeaderChanged}><MacrosPanel data={food} onMacroChanged={onMacroChanged} /></Card>
-	});
+}));
 
-	const onFilterValueChanged = (field, value) => setFilterText(value);
+
+function FoodDatabase(props) {
+	const classes = useStyles();
+	const [selectedIndex, setSelectedIndex] = useState(0);
+	const selectedItem = props.items[selectedIndex];
 
 	return (
-		<div className="food-database">
-			<div className="food-database-title">Database</div>
-			<div className="food-database-filter"><Entry placeholder="Filter" value={filterText} onValueChanged={onFilterValueChanged} /></div>
-			<div className="food-database-list">
-				{cards}
-			</div>
-		</div>
+		<Grid container justify="center">
+			<Grid item>
+				<Paper className={classes.root}>
+					<Grid container>
+						<Grid item xs>
+							<FoodList items={props.items} selectedIndex={selectedIndex} onSelectedIndexChanged={setSelectedIndex} />
+						</Grid>
+						<Grid item>
+							<Divider className={classes.divider} />
+						</Grid>
+						<Grid item>
+							<FoodDetailPanel item={selectedItem} onFoodPropertyChanged={props.onFoodPropertyChanged} />
+						</Grid>
+					</Grid>
+				</Paper>
+			</Grid>
+		</Grid>
 	);
 }
 

@@ -3,6 +3,9 @@ import MealCard from './MealCard';
 import { mealStore } from './MealStore';
 import './MealContainer.css';
 
+import Grid from '@material-ui/core/Grid';
+
+
 function MealContainer(props) {
 	const [state, setState] = useState({meals: mealStore.getMeals()});
 
@@ -12,13 +15,12 @@ function MealContainer(props) {
 		return () => mealStore.removeUpdateListener(onUpdate);
 	}, []);
 
-	const mealCards = state.meals.map((meal, index) => <MealCard key={meal.id} title={meal.title} id={meal.id} items={meal.meals} />)
+	const mealCards = state.meals.map((meal, index) => <Grid item key={meal.id}><MealCard title={meal.title} id={meal.id} items={meal.meals} /></Grid>)
 	
 	return (
-		<div className="meal-container">
-			<div className="meal-container-title">Meals</div>
-			<div className="meal-container-list">{mealCards}</div>
-		</div>
+		<Grid container spacing={2} justify="center">
+			{mealCards}
+		</Grid>
 	);
 }
 
