@@ -4,8 +4,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import { List, ListItem, ListItemText, Grid, InputBase } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
-	root: {
-		width: 1396
+	listContainer: {
+		overflow: 'auto'
 	},
 
 	filter: {
@@ -30,9 +30,13 @@ function FoodList(props) {
 	}
 
 	const listItems = items.map((item, index) => {
+		const listItemText = !!item.title ?
+			<ListItemText primary={item.title || 'No Title'} /> :
+			<ListItemText primary="No Title" primaryTypographyProps={{component: 'i'}} />
+
 		return (
 			<ListItem button selected={props.selectedIndex === index} onClick={event => onItemClicked(event, index)} key={index}>
-				<ListItemText primary={item.title} />
+				{listItemText}
 			</ListItem>
 			);
 	});
@@ -47,8 +51,8 @@ function FoodList(props) {
 					onChange={onFilterChanged}
 				/>
 			</Grid>
-			<Grid item>
-				<List component="nav" >
+			<Grid item xs className={classes.listContainer}>
+				<List>
 					{listItems}
 				</List>
 			</Grid>

@@ -4,25 +4,19 @@ import MealContainer from './MealContainer';
 import FoodDatabase from './FoodDatabase';
 
 
-import AppBar from '@material-ui/core/AppBar';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
-
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
-
+import { AppBar, CssBaseline, Toolbar, Typography, Button, Tabs, Tab, Box } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(theme => ({
 
 	appBar: {
-		borderBottom: `1px solid ${theme.palette.divider}`
+		borderBottom: `1px solid ${theme.palette.divider}`,
+		alignItems: 'center'
 	},
 
 	toolbar: {
-		flexWrap: 'wrap'
+		maxWidth: 768,
+		width: '100vw'
 	},
 
 	toolbarTitle: {
@@ -31,6 +25,11 @@ const useStyles = makeStyles(theme => ({
 
 	tabs: {
 		marginBottom: '2em'
+	},
+
+	tabContent: {
+		maxHeight: 'calc(100vh - 112px - 2em)',
+		padding: '1em 0',
 	}
 
 }));
@@ -39,7 +38,7 @@ const useStyles = makeStyles(theme => ({
 function App() {
 	const classes = useStyles();
 	const [state, setState] = useState({
-		selectedTab: 1,
+		selectedTab: 0,
 		foods: mealStore.getFoods(),
 		meals: mealStore.getMeals()
 	});
@@ -51,9 +50,15 @@ function App() {
 		setState({...state, foods: mealStore.getFoods()});
 	};
 
+	const onFoodAdded = () => {
+		mealStore.addFood();
+		var updatedFoods = mealStore.getFoods()
+		setState({...state, foods: updatedFoods})
+	}
+
 	const renderedContent = state.selectedTab === 0 ?
-		<FoodDatabase onFoodPropertyChanged={onFoodPropertyChanged} items={state.foods} /> :
-		<MealContainer items={state.meals} />;
+		<FoodDatabase onFoodPropertyChanged={onFoodPropertyChanged} items={state.foods} onFoodAdded={onFoodAdded} className={classes.tabContent} /> :
+		<MealContainer items={state.meals} className={classes.tabContent} />;
 
 	return (
 		<React.Fragment>
@@ -70,12 +75,13 @@ function App() {
 				indicatorColor="primary"
 				textColor="primary"
 				centered
-				className={classes.tabs}
 			>
 				<Tab label="Database" />
 				<Tab label="Meals" />
 			</Tabs>
-			{renderedContent}
+			<Box className={classes.tabContent}>
+				{renderedContent}
+			</Box>
 		</React.Fragment>
 	);
 }
