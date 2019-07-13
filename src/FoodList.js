@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 
-import { List, ListItem, ListItemText, Grid, InputBase } from '@material-ui/core';
+import { List, ListItem, ListItemText, InputBase } from '@material-ui/core';
+
+import './FoodList.css';
 
 const useStyles = makeStyles(theme => ({
 	listContainer: {
@@ -42,21 +44,17 @@ function FoodList(props) {
 	});
 
 	return (
-		<Grid container direction="column">
-			<Grid item>
-				<InputBase
-					className={classes.filter}
-					placeholder="Filter"
-					value={filter}
-					onChange={onFilterChanged}
-				/>
-			</Grid>
-			<Grid item xs className={classes.listContainer}>
-				<List>
+		<div className="food-list-wrapper">
+			<InputBase
+				className={classes.filter}
+				placeholder="Filter"
+				value={filter}
+				onChange={onFilterChanged}
+			/>
+			<List className="food-list">
 					{listItems}
-				</List>
-			</Grid>
-		</Grid>
+			</List>
+		</div>
 	);
 }
 

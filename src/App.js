@@ -4,9 +4,11 @@ import MealContainer from './MealContainer';
 import FoodDatabase from './FoodDatabase';
 
 
-import { AppBar, CssBaseline, Toolbar, Typography, IconButton, Tabs, Tab, Box } from '@material-ui/core';
+import { AppBar, CssBaseline, Toolbar, Typography, IconButton, Tabs, Tab } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import { makeStyles } from '@material-ui/core/styles';
+
+import './App.css';
 
 const useStyles = makeStyles(theme => ({
 
@@ -22,10 +24,6 @@ const useStyles = makeStyles(theme => ({
 
 	toolbarTitle: {
 		flexGrow: 1
-	},
-
-	tabs: {
-		marginBottom: '2em'
 	},
 
 	tabContent: {
@@ -73,25 +71,27 @@ function App() {
 	return (
 		<React.Fragment>
 			<CssBaseline />
-			<AppBar position="static" color="default" elevation={0} className={classes.appBar}>
-				<Toolbar className={classes.toolbar}>
-					<Typography variant="h6" color="inherit" className={classes.toolbarTitle}>Meal Planner</Typography>
-					<IconButton onClick={onAddClicked}><AddIcon /></IconButton>
-				</Toolbar>
-				<Tabs
-					value={state.selectedTab}
-					onChange={handleTabChange}
-					indicatorColor="primary"
-					textColor="primary"
-					centered
-				>
-					<Tab label="Database" />
-					<Tab label="Meals" />
-				</Tabs>
-			</AppBar>
-			<Box className={classes.tabContent}>
-				{renderedContent}
-			</Box>
+			<div className="wrapper">
+				<AppBar position="static" color="default" elevation={0} className={classes.appBar}>
+					<Toolbar className={classes.toolbar}>
+						<Typography variant="h6" color="inherit" className={classes.toolbarTitle}>Meal Planner</Typography>
+						<IconButton onClick={onAddClicked}><AddIcon /></IconButton>
+					</Toolbar>
+					<Tabs
+						value={state.selectedTab}
+						onChange={handleTabChange}
+						indicatorColor="primary"
+						textColor="primary"
+						centered
+					>
+						<Tab label="Database" />
+						<Tab label="Meals" />
+					</Tabs>
+				</AppBar>
+				<div className="tab-content">
+					{renderedContent}
+				</div>
+			</div>
 		</React.Fragment>
 	);
 }

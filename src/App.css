@@ -7,3 +7,16 @@ span {
 	overflow: hidden;
 	text-overflow: ellipsis;
 }
+
+.wrapper {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+}
+
+.tab-content {
+	flex-grow: 1;
+	display: flex;
+	align-items: flex-start;
+	justify-content: center;
+}

@@ -3,12 +3,15 @@ import { makeStyles } from '@material-ui/core/styles';
 import FoodList from './FoodList';
 import FoodDetailPanel from './FoodDetailPanel';
 
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+import { useTheme } from '@material-ui/core/styles';
+
 import { Paper, Grid, Divider } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
 	root: {
 		maxWidth: 768,
-		margin: 'auto'
+		width: '100vw'
 	},
 
 	divider: {
@@ -24,7 +27,10 @@ function FoodDatabase(props) {
 	const [selectedIndex, setSelectedIndex] = useState(0);
 	const selectedItem = props.items[selectedIndex];
 
-	return (
+	const theme = useTheme();
+	const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+
+	const desktop =  (
 		<Paper className={classes.root}>
 			<Grid container>
 				<Grid item container xs>
@@ -39,6 +45,12 @@ function FoodDatabase(props) {
 			</Grid>
 		</Paper>
 	);
+
+	const mobile = (
+		<FoodList items={props.items} selectedIndex={selectedIndex} onSelectedIndexChanged={setSelectedIndex} />
+		);
+
+	return isMobile ? mobile : desktop;
 }
 
 export default FoodDatabase;
