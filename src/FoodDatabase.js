@@ -34,7 +34,7 @@ function FoodDatabase(props) {
 					<Divider className={classes.divider} />
 				</Grid>
 				<Grid item>
-					<FoodDetailPanel item={selectedItem} onFoodPropertyChanged={props.onFoodPropertyChanged} />
+					<FoodDetailPanel item={selectedItem} onFoodPropertyChanged={props.onFoodPropertyChanged} onFoodDeleted={props.onFoodDeleted} />
 				</Grid>
 			</Grid>
 		</Paper>

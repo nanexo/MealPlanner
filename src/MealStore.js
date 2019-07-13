@@ -1,5 +1,4 @@
 class MealStore {
-	__updateListeners = [];
 
 	__emptyFoodObject = {id: -1, title: '', protein: '', carbs: '', fat: '', fiber: '', amount: ''};
 	__emptyMealObject = {id: -1, title: '', meals: []};
@@ -53,7 +52,7 @@ class MealStore {
 	}
 
 	getFood(id) {
-		return this.__foods[id];
+		return this.__foods.find(food => food.id === id);
 	}
 
 	updateMealAmount(mealId, mealEntryId, amount) {
@@ -61,7 +60,6 @@ class MealStore {
 		const mealEntry = meal.meals.find(mealEntry => mealEntry.id === mealEntryId);
 		mealEntry.amount = amount;
 
-		this.__update();
 	}
 
 	updateFood(foodId, field, value) {
@@ -70,33 +68,24 @@ class MealStore {
 			value = parseFloat(value)
 		}
 		food[field] = value;
-		this.__update();
 	}
 
 	addFood() {
 		let newFood = Object.assign({}, this.__emptyFoodObject);
 		newFood.id = this.__foods.length;
 		this.__foods.push(newFood);
-		this.__update();
+	}
+	deleteFood(foodId) {
+		const index = this.__foods.indexOf(this.__foods.find(food => food.id === foodId));
+		this.__meals.forEach(meal => meal.meals = meal.meals.filter( mealEntry => mealEntry.foodId !== foodId));
+		console.log(this.__meals);
+		this.__foods.splice(index, 1);
 	}
 
 	addMeal() {
 		let newMeal = Object.assign({}, this.__emptyMealObject);
 		newMeal.id = this.__meals.length;
 		this.__meals.push(newMeal);
-		this.__update();
-	}
-
-	__update() {
-		this.__updateListeners.forEach(listeners => listeners());
-	}
-
-	addUpdateListener(func) {
-		this.__updateListeners.push(func);
-	}
-
-	removeUpdateListener(func) {
-		this.__updateListeners = this.__updateListeners.filter(listener => listener === func);
 	}
 }
 

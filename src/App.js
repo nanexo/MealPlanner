@@ -39,7 +39,7 @@ const useStyles = makeStyles(theme => ({
 function App() {
 	const classes = useStyles();
 	const [state, setState] = useState({
-		selectedTab: 1,
+		selectedTab: 0,
 		foods: mealStore.getFoods(),
 		meals: mealStore.getMeals()
 	});
@@ -49,6 +49,11 @@ function App() {
 	const onFoodPropertyChanged = (foodId, field, value) => {
 		mealStore.updateFood(foodId, field, value)
 		setState({...state, foods: mealStore.getFoods()});
+	};
+
+	const onDeleteFood = foodId => {
+		mealStore.deleteFood(foodId);
+		setState({...state, meals: mealStore.getMeals(), foods: mealStore.getFoods()});
 	};
 
 	const onAddClicked = () => {
@@ -62,7 +67,7 @@ function App() {
 	}
 
 	const renderedContent = state.selectedTab === 0 ?
-		<FoodDatabase onFoodPropertyChanged={onFoodPropertyChanged} items={state.foods} className={classes.tabContent} /> :
+		<FoodDatabase onFoodPropertyChanged={onFoodPropertyChanged} onFoodDeleted={onDeleteFood} items={state.foods} className={classes.tabContent} /> :
 		<MealContainer items={state.meals} className={classes.tabContent} />;
 
 	return (
@@ -73,17 +78,17 @@ function App() {
 					<Typography variant="h6" color="inherit" className={classes.toolbarTitle}>Meal Planner</Typography>
 					<IconButton onClick={onAddClicked}><AddIcon /></IconButton>
 				</Toolbar>
+				<Tabs
+					value={state.selectedTab}
+					onChange={handleTabChange}
+					indicatorColor="primary"
+					textColor="primary"
+					centered
+				>
+					<Tab label="Database" />
+					<Tab label="Meals" />
+				</Tabs>
 			</AppBar>
-			<Tabs
-				value={state.selectedTab}
-				onChange={handleTabChange}
-				indicatorColor="primary"
-				textColor="primary"
-				centered
-			>
-				<Tab label="Database" />
-				<Tab label="Meals" />
-			</Tabs>
 			<Box className={classes.tabContent}>
 				{renderedContent}
 			</Box>
