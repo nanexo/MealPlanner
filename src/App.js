@@ -37,7 +37,7 @@ const useStyles = makeStyles(theme => ({
 function App() {
 	const classes = useStyles();
 	const [state, setState] = useState({
-		selectedTab: 0,
+		selectedTab: 1,
 		foods: mealStore.getFoods(),
 		meals: mealStore.getMeals()
 	});
@@ -74,7 +74,7 @@ function App() {
 			<div className="wrapper">
 				<AppBar position="static" color="default" elevation={0} className={classes.appBar}>
 					<Toolbar className={classes.toolbar}>
-						<Typography variant="h6" color="inherit" className={classes.toolbarTitle}>Meal Planner</Typography>
+						<Typography variant="h6" component="h1" color="inherit" className={classes.toolbarTitle}>Meal Planner</Typography>
 						<IconButton onClick={onAddClicked}><AddIcon /></IconButton>
 					</Toolbar>
 					<Tabs

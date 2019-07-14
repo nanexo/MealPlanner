@@ -46,8 +46,8 @@ function CalorieDisplay(props) {
 					</Pie>
 				</PieChart>
 			</div>
-			<div className="calorie-display-count"><Typography variant="h4">{cals.toFixed(1)}</Typography></div>
-			<div className="calorie-display-label"><Typography variant="h6">Calories</Typography></div>
+			<Typography variant="h5" component="span" className="calorie-display-count">{cals.toFixed(1)}</Typography>
+			<Typography variant="h6" component="span" className="calorie-display-label">Cals</Typography>
 		</div>
 	)
 }

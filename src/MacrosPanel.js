@@ -5,42 +5,22 @@ import { Grid, Typography } from '@material-ui/core';
 
 function MacrosPanel(props) {
 	return (
-		<Grid container direction="column" spacing={3}>
-			<Grid container item justify="center">
-				<Grid item>
-					<CalorieDisplay data={props.data} size={props.size || 160} />
-				</Grid>
+		<Grid container spacing={3}  wrap="nowrap">
+			<Grid item>
+				<CalorieDisplay data={props.data} size={props.size || 160} />
 			</Grid>
-			<Grid container item>
-				<Grid container item xs={4} justify="center">
-					<Grid item>
-						<Typography>{props.data.protein}g</Typography>
-					</Grid>
+			<Grid item container alignItems="center" direction="column" justify="space-evenly">
+				<Grid item>
+					<Typography>Protein</Typography>
+					<Typography>{props.data.protein}g</Typography>
 				</Grid>
-				<Grid container item xs={4} justify="center">
-					<Grid item>
-						<Typography>{props.data.carbs}g</Typography>
-					</Grid>
+				<Grid item>
+					<Typography>Carbs</Typography>
+					<Typography>{props.data.carbs}g</Typography>
 				</Grid>
-				<Grid container item xs={4} justify="center">
-					<Grid item>
-						<Typography>{props.data.fat}g</Typography>
-					</Grid>
-				</Grid>
-				<Grid container item xs={4} justify="center">
-					<Grid item>
-						<Typography>Protein</Typography>
-					</Grid>
-				</Grid>
-				<Grid container item xs={4} justify="center">
-					<Grid item>
-						<Typography>Carbs</Typography>
-					</Grid>
-				</Grid>
-				<Grid container item xs={4} justify="center">
-					<Grid item>
-						<Typography>Fat</Typography>
-					</Grid>
+				<Grid item>
+					<Typography>Fat</Typography>
+					<Typography>{props.data.fat}g</Typography>
 				</Grid>
 			</Grid>
 		</Grid>
