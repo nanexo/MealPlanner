@@ -34,7 +34,7 @@ function FoodDatabase(props) {
 		<Paper className={classes.root}>
 			<Grid container>
 				<Grid item container xs>
-					<FoodList items={props.items} selectedIndex={selectedIndex} onSelectedIndexChanged={setSelectedIndex} />
+					<FoodList items={props.items} selectedIndex={selectedIndex} onItemClicked={setSelectedIndex} />
 				</Grid>
 				<Grid item>
 					<Divider className={classes.divider} />

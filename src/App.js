@@ -4,8 +4,7 @@ import MealContainer from './MealContainer';
 import FoodDatabase from './FoodDatabase';
 
 
-import { AppBar, CssBaseline, Toolbar, Typography, IconButton, Tabs, Tab } from '@material-ui/core';
-import AddIcon from '@material-ui/icons/Add';
+import { AppBar, CssBaseline, Toolbar, Button, Tabs, Tab } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 import './App.css';
@@ -23,6 +22,10 @@ const useStyles = makeStyles(theme => ({
 	},
 
 	toolbarTitle: {
+		flexGrow: 1
+	},
+
+	tabs: {
 		flexGrow: 1
 	},
 
@@ -54,39 +57,41 @@ function App() {
 		setState({...state, meals: mealStore.getMeals(), foods: mealStore.getFoods()});
 	};
 
-	const onAddClicked = () => {
-		if (state.selectedTab === 0) {
-			mealStore.addFood();
-			setState({...state, foods: mealStore.getFoods()});
-		} else {
-			mealStore.addMeal();
-			setState({...state, meals: mealStore.getMeals()});
-		}
+	const onFoodAddClicked = () => {
+		mealStore.addFood();
+		setState({...state, foods: mealStore.getFoods()});
+	}
+	const onMealAddClicked = () =>{
+		mealStore.addMeal();
+		setState({...state, meals: mealStore.getMeals()});	
 	}
 
 	const renderedContent = state.selectedTab === 0 ?
 		<FoodDatabase onFoodPropertyChanged={onFoodPropertyChanged} onFoodDeleted={onDeleteFood} items={state.foods} className={classes.tabContent} /> :
 		<MealContainer items={state.meals} className={classes.tabContent} />;
 
+	const primaryButton = state.selectedTab === 0 ?
+		<Button variant="contained" color="primary" onClick={onFoodAddClicked}>ADD FOOD</Button> :
+		<Button variant="contained" color="primary" onClick={onMealAddClicked}>ADD MEAL</Button>;
+
 	return (
 		<React.Fragment>
 			<CssBaseline />
 			<div className="wrapper">
 				<AppBar position="static" color="default" elevation={0} className={classes.appBar}>
-					<Toolbar className={classes.toolbar}>
-						<Typography variant="h6" component="h1" color="inherit" className={classes.toolbarTitle}>Meal Planner</Typography>
-						<IconButton onClick={onAddClicked}><AddIcon /></IconButton>
+					<Toolbar variant="dense" className={classes.toolbar}>
+						<Tabs
+							value={state.selectedTab}
+							onChange={handleTabChange}
+							indicatorColor="primary"
+							textColor="primary"
+							className={classes.tabs}
+						>
+							<Tab label="Database" />
+							<Tab label="Meals" />
+						</Tabs>
+						{primaryButton}
 					</Toolbar>
-					<Tabs
-						value={state.selectedTab}
-						onChange={handleTabChange}
-						indicatorColor="primary"
-						textColor="primary"
-						centered
-					>
-						<Tab label="Database" />
-						<Tab label="Meals" />
-					</Tabs>
 				</AppBar>
 				<div className="tab-content">
 					{renderedContent}

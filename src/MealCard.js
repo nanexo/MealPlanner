@@ -18,6 +18,7 @@ const useStyles = makeStyles(theme => ({
 		padding: '0.5em'
 	},
 	cardPadding: {
+		padding: '1rem'
 	}
 
 }));
@@ -26,10 +27,10 @@ function MealCard(props) {
 	const classes = useStyles();
 	const [expanded, setExpanded] = React.useState(false);
 
-	const mealEntries = props.items.map((mealEntry, index) => {
+	const mealEntries = props.meal.meals.map((mealEntry, index) => {
 		const foodLabel = mealStore.getFood(mealEntry.foodId).title;
 		return (
-			<ListItem key={mealEntry.id}>
+			<ListItem key={index}>
 				<ListItemText primary={foodLabel} secondary={mealEntry.amount + 'g'} />
 			</ListItem>
 			);
@@ -44,21 +45,22 @@ function MealCard(props) {
 
 
 	const data = {
-		protein: props.items.reduce(sumFunc('protein'), 0),
-		carbs:  props.items.reduce(sumFunc('carbs'), 0),
-		fat:  props.items.reduce(sumFunc('fat'), 0)
+		protein: props.meal.meals.reduce(sumFunc('protein'), 0),
+		carbs:  props.meal.meals.reduce(sumFunc('carbs'), 0),
+		fat:  props.meal.meals.reduce(sumFunc('fat'), 0)
 	};
 
 	const onExpandClicked = () => setExpanded(!expanded);
-	const s = {padding: '1rem'};
+	const onMealCardClicked = () => props.onMealCardClicked(props.meal)
+
 	return (
 		<Paper className={classes.card}>
-			<Grid container direction="column" className={classes.cardPadding}>
+			<Grid container direction="column">
 				<Grid item>
-					<Typography variant="h6" component="h2" className={classes.title}>{props.title}</Typography>
+					<Typography variant="h6" component="h2" className={classes.cardPadding}>{props.meal.title}</Typography>
 				</Grid>
 				<Grid item>
-					<ButtonBase style={s}>
+					<ButtonBase className={classes.cardPadding} onClick={onMealCardClicked}>
 						<MacrosPanel data={data} size={200} />
 					</ButtonBase>
 				</Grid>

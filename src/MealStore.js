@@ -4,11 +4,11 @@ class MealStore {
 	__emptyMealObject = {id: -1, title: '', meals: []};
 
 	__foods = [
-		{id: 0, title: 'Poulet', protein: 25, carbs: 1, fat: 1.5, fiber: 0, amount: 100},
-		{id: 1, title: 'Eier', protein: 13, carbs: 1, fat: 11, fiber: 0, amount: 100},
-		{id: 2, title: 'Linsen', protein: 4.5, carbs: 11, fat: 2, fiber: 3.5, amount: 100},
-		{id: 3, title: 'Kopfsalat', protein: 1, carbs: 1, fat: 0.2, fiber: 1.5, amount: 100},
-		{id: 4, title: 'Schweizer Gemuesemischung', protein: 2, carbs: 8, fat: 0.5, fiber: 3, amount: 100},
+		{id: 0, title: 'Chicken', protein: 25, carbs: 1, fat: 1.5, fiber: 0, amount: 100},
+		{id: 1, title: 'Eggs', protein: 13, carbs: 1, fat: 11, fiber: 0, amount: 100},
+		{id: 2, title: 'Lentils', protein: 4.5, carbs: 11, fat: 2, fiber: 3.5, amount: 100},
+		{id: 3, title: 'Lettuce', protein: 1, carbs: 1, fat: 0.2, fiber: 1.5, amount: 100},
+		{id: 4, title: 'Vegetable mix', protein: 2, carbs: 8, fat: 0.5, fiber: 3, amount: 100},
 		{id: 5, title: 'Edamame', protein: 12, carbs: 11, fat: 4, fiber: 4, amount: 100},
 		{id: 6, title: 'Iso100', protein: 25, carbs: 0.8, fat: 0.6, fiber: 0, amount: 1}
 	]
@@ -78,7 +78,6 @@ class MealStore {
 	deleteFood(foodId) {
 		const index = this.__foods.indexOf(this.__foods.find(food => food.id === foodId));
 		this.__meals.forEach(meal => meal.meals = meal.meals.filter( mealEntry => mealEntry.foodId !== foodId));
-		console.log(this.__meals);
 		this.__foods.splice(index, 1);
 	}
 
