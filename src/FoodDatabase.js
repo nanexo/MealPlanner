@@ -34,13 +34,13 @@ function FoodDatabase(props) {
 		<Paper className={classes.root}>
 			<Grid container>
 				<Grid item container xs>
-					<FoodList items={props.items} selectedIndex={selectedIndex} onItemClicked={setSelectedIndex} />
+					<FoodList items={props.items} selectedIndex={selectedIndex} onSelectedIndexChanged={setSelectedIndex} />
 				</Grid>
 				<Grid item>
 					<Divider className={classes.divider} />
 				</Grid>
 				<Grid item>
-					<FoodDetailPanel item={selectedItem} onFoodPropertyChanged={props.onFoodPropertyChanged} onFoodDeleted={props.onFoodDeleted} />
+					<FoodDetailPanel item={selectedItem}/>
 				</Grid>
 			</Grid>
 		</Paper>

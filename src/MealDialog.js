@@ -3,7 +3,7 @@ import { Dialog, DialogTitle, DialogContent, TextField, DialogActions, Button, G
 import { makeStyles } from '@material-ui/core/styles';
 
 import MealEntryCard from './MealEntryCard';
-import {mealStore} from './MealStore';
+import { useDispatch } from './State';
 
 const useStyles = makeStyles(theme => ({
 	dialogRoot: {
@@ -20,13 +20,18 @@ const clone = (obj) => {
 
 function MealDialog(props) {
 	const classes = useStyles();
-	const foodItems = mealStore.getFoods();
+	const dispatch = useDispatch();
 
 	const [tempMeal, setTempMeal] = React.useState(props.meal ? clone(props.meal) : {meals: []});
 
 	const dialogTitle = Boolean(props.meal) ? 'Edit Meal' : 'New Meal';
 	
-	const onSave = () => props.handleClose();
+	const onSave = () => {
+		console.log('onSave', tempMeal)
+		dispatch({type: 'saveMeal', meal: tempMeal});
+		onClose();
+	};
+	const onClose = () => dispatch({type: 'closeMealDialog'});
 
 	const onChangeTitle = event => {
 		const t = {...tempMeal};
@@ -64,7 +69,7 @@ function MealDialog(props) {
 		return (tempMeal.meals.find(mealEntry => mealEntry.foodId === food.id) || food).amount;
 	}
 
-	const mealEntryCards = foodItems.map(item => {
+	const mealEntryCards = props.foodList.map(item => {
 		return (
 			<Grid item key={item.id}>
 				<MealEntryCard
@@ -78,7 +83,7 @@ function MealDialog(props) {
 	});
 
 	return (
-		<Dialog open={props.open} onClose={props.handleClose} aria-labelledby="form-dialog-title" maxWidth="sm" fullWidth>
+		<Dialog open={props.open} onClose={onClose} aria-labelledby="form-dialog-title" maxWidth="sm" fullWidth>
 			<DialogTitle id="form-dialog-title">{dialogTitle}</DialogTitle>
 			<DialogContent dividers className={classes.dialogRoot}>
 				<Grid container spacing={2} direction="column">
@@ -98,7 +103,7 @@ function MealDialog(props) {
 				</Grid>
 			</DialogContent>
 			<DialogActions>
-				<Button onClick={onSave}>Close</Button>
+				<Button onClick={onClose}>Close</Button>
 				<Button onClick={onSave} color="primary">Save</Button>
 			</DialogActions>
 		</Dialog>

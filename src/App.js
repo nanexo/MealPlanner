@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
-import {mealStore} from './MealStore';
+import React from 'react';
+import { DEMO_DATA } from './DemoData';
 import MealContainer from './MealContainer';
 import FoodDatabase from './FoodDatabase';
-
+import MealDialog from './MealDialog';
+import { DispatchProvider, appReducer } from './State'
 
 import { AppBar, CssBaseline, Toolbar, Button, Tabs, Tab } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
@@ -36,38 +37,34 @@ const useStyles = makeStyles(theme => ({
 
 }));
 
+function logAppReducer(state, action) {
+	console.log('old', state);
+	const newState = appReducer(state, action);
+	console.log('new', newState);
+	return newState;
+}
 
 function App() {
 	const classes = useStyles();
-	const [state, setState] = useState({
+	const initialState = {
+		...DEMO_DATA,
 		selectedTab: 1,
-		foods: mealStore.getFoods(),
-		meals: mealStore.getMeals()
-	});
-
-	const handleTabChange = (e, newValue) => setState({...state, selectedTab: newValue});
-
-	const onFoodPropertyChanged = (foodId, field, value) => {
-		mealStore.updateFood(foodId, field, value)
-		setState({...state, foods: mealStore.getFoods()});
+		nextFoodId: 100,
+		nextMealId: 100,
+		mealDialogItem: null
 	};
 
-	const onDeleteFood = foodId => {
-		mealStore.deleteFood(foodId);
-		setState({...state, meals: mealStore.getMeals(), foods: mealStore.getFoods()});
-	};
+	const [state, dispatch] = React.useReducer(logAppReducer, initialState);
 
-	const onFoodAddClicked = () => {
-		mealStore.addFood();
-		setState({...state, foods: mealStore.getFoods()});
-	}
-	const onMealAddClicked = () =>{
-		mealStore.addMeal();
-		setState({...state, meals: mealStore.getMeals()});	
-	}
+	const handleTabChange = (e, newValue) => dispatch({type: 'selectTab', value: newValue});
+
+	const onFoodAddClicked = () => dispatch({type: 'addFood'});
+	const onMealAddClicked = () => dispatch({type: 'addMeal'});
+
+	const dialogOpen = Boolean(state.mealDialogItem)
 
 	const renderedContent = state.selectedTab === 0 ?
-		<FoodDatabase onFoodPropertyChanged={onFoodPropertyChanged} onFoodDeleted={onDeleteFood} items={state.foods} className={classes.tabContent} /> :
+		<FoodDatabase items={state.foods} className={classes.tabContent} /> :
 		<MealContainer items={state.meals} className={classes.tabContent} />;
 
 	const primaryButton = state.selectedTab === 0 ?
@@ -75,29 +72,33 @@ function App() {
 		<Button variant="contained" color="primary" onClick={onMealAddClicked}>ADD MEAL</Button>;
 
 	return (
-		<React.Fragment>
-			<CssBaseline />
-			<div className="wrapper">
-				<AppBar position="static" color="default" elevation={0} className={classes.appBar}>
-					<Toolbar variant="dense" className={classes.toolbar}>
-						<Tabs
-							value={state.selectedTab}
-							onChange={handleTabChange}
-							indicatorColor="primary"
-							textColor="primary"
-							className={classes.tabs}
-						>
-							<Tab label="Database" />
-							<Tab label="Meals" />
-						</Tabs>
-						{primaryButton}
-					</Toolbar>
-				</AppBar>
-				<div className="tab-content">
-					{renderedContent}
+		<DispatchProvider dispatch={dispatch}>
+			<React.Fragment>
+				<CssBaseline />
+				<div className="wrapper">
+					<AppBar position="static" color="default" elevation={0} className={classes.appBar}>
+						<Toolbar variant="dense" className={classes.toolbar}>
+							<Tabs
+								value={state.selectedTab}
+								onChange={handleTabChange}
+								indicatorColor="primary"
+								textColor="primary"
+								className={classes.tabs}
+							>
+								<Tab label="Database" />
+								<Tab label="Meals" />
+							</Tabs>
+							{primaryButton}
+						</Toolbar>
+					</AppBar>
+					<div className="tab-content">
+						{renderedContent}
+					</div>
 				</div>
-			</div>
-		</React.Fragment>
+				{/*key is needed here to redo the state of the component based on new props - any id will do that cant be a normal id*/}
+				<MealDialog open={dialogOpen} meal={state.mealDialogItem} foodList={state.foods} key={(state.mealDialogItem || {id: -11}).id} />
+			</React.Fragment>
+		</DispatchProvider>
 	);
 }
 

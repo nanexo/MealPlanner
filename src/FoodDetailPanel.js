@@ -4,6 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Grid, TextField, InputAdornment, Button } from '@material-ui/core';
 
 import CalorieDisplay from './CalorieDisplay';
+import { useDispatch } from './State';
 
 const useStyles = makeStyles(theme => ({
 	root: {
@@ -18,9 +19,16 @@ const useStyles = makeStyles(theme => ({
 
 function FoodDetailPanel(props) {
 	const classes = useStyles();
+	const dispatch = useDispatch();
 
-	const createHandler = name => event => props.onFoodPropertyChanged(props.item.id, name, event.target.value);
-	const deleteFoodHandler = () => props.onFoodDeleted(props.item.id);
+	const createHandler = (name, isFloat) => event => {
+		let value = event.target.value;
+		if(isFloat) {
+			value = parseFloat(value);
+		}
+		dispatch({type: 'updateFood', foodId: props.item.id, field: name, value: value});
+	}
+	const deleteFoodHandler = () => dispatch({type: 'deleteFood', foodId: props.item.id});
 
 	return (
 		<Grid container direction="column" spacing={2} className={classes.root}>
@@ -42,7 +50,7 @@ function FoodDetailPanel(props) {
 					id="protein"
 					fullWidth
 					value={props.item.protein}
-					onChange={createHandler('protein')}
+					onChange={createHandler('protein', true)}
 			        InputProps={{
 						endAdornment: <InputAdornment position="end">g</InputAdornment>
 					}}
@@ -54,7 +62,7 @@ function FoodDetailPanel(props) {
 					id="carbs"
 					fullWidth
 					value={props.item.carbs}
-					onChange={createHandler('carbs')}
+					onChange={createHandler('carbs', true)}
 					InputProps={{
 						endAdornment: <InputAdornment position="end">g</InputAdornment>
 					}}
@@ -66,7 +74,7 @@ function FoodDetailPanel(props) {
 					id="fat"
 					fullWidth
 					value={props.item.fat}
-					onChange={createHandler('fat')}
+					onChange={createHandler('fat', true)}
 					InputProps={{
 						endAdornment: <InputAdornment position="end">g</InputAdornment>
 					}}
