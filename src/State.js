@@ -79,7 +79,7 @@ function mainReducer(state, action) {
 			};
 		}
 		case 'addMeal': {
-			const nextMealId = state.nextMealId++;
+			const nextMealId = ++state.nextMealId;
 			const newMeal = {id: state.nextMealId, title: '', meals: []};
 			return {
 				...state,
@@ -94,12 +94,27 @@ function mainReducer(state, action) {
 			};
 		}
 		case 'saveMeal': {
-			const mealIndex = state.meals.findIndex(meal => meal.id === action.meal.id);
-			let updatedMealList = [...state.meals];
-			updatedMealList[mealIndex] = action.meal;
+			const updatedMealList = [...state.meals];
+
+			if(action.meal.isNew) {
+				delete action.meal.isNew;
+				updatedMealList.push(action.meal);
+			} else {
+				const mealIndex = state.meals.findIndex(meal => meal.id === action.meal.id);
+				updatedMealList[mealIndex] = action.meal;
+			}
 			return {
 				...state,
 				meals: updatedMealList
+			};
+		}
+		case 'showNewMealDialog': {
+			const nextMealId = ++state.nextMealId;
+			const newMeal = {id: state.nextMealId, isNew: true, title: '', meals: []};
+			return {
+				...state,
+				mealDialogItem: newMeal,
+				nextMealId: nextMealId
 			};
 		}
 		case 'showMealDialog': {

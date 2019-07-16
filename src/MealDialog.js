@@ -24,41 +24,42 @@ function MealDialog(props) {
 
 	const [tempMeal, setTempMeal] = React.useState(props.meal ? clone(props.meal) : {meals: []});
 
-	const dialogTitle = Boolean(props.meal) ? 'Edit Meal' : 'New Meal';
-	
 	const onSave = () => {
-		console.log('onSave', tempMeal)
 		dispatch({type: 'saveMeal', meal: tempMeal});
+		onClose();
+	};
+	const onDelete = () => {
+		dispatch({type: 'deleteMeal', mealId: props.meal.id})
 		onClose();
 	};
 	const onClose = () => dispatch({type: 'closeMealDialog'});
 
-	const onChangeTitle = event => {
-		const t = {...tempMeal};
-		t.title = event.target.value;
-		setTempMeal(t);
-	}
+	const onChangeTitle = event => setTempMeal({...tempMeal, title: event.target.value});
+	const isNew = () => (props.meal || {}).isNew;
 
 	const createCheckHandler = food => () => {
-		const t = {...tempMeal};
-		const foodIndex = t.meals.findIndex(mealEntry => mealEntry.foodId === food.id);
+		const foodIndex = tempMeal.meals.findIndex(mealEntry => mealEntry.foodId === food.id);
+		let newMealList = Array.from(tempMeal.meals);
 		if(foodIndex !== -1) {
-			t.meals.splice(foodIndex, 1);
+			newMealList.splice(foodIndex, 1);
 		} else {
-			t.meals.push({foodId: food.id, amount: food.amount});
+			newMealList.push({foodId: food.id, amount: food.amount});
 		}
-		setTempMeal(t);
+		setTempMeal({...tempMeal, meals: newMealList});
 	};
 
 	const createAmountChangedHandler = food => amount => {
-		const t = {...tempMeal};
-		const foodIndex = t.meals.findIndex(mealEntry => mealEntry.foodId === food.id);
-		if(foodIndex !== -1) {
-			t.meals[foodIndex].amount = amount;
-		} else {
+		const foodIndex = tempMeal.meals.findIndex(mealEntry => mealEntry.foodId === food.id);
+		const fAmount = parseFloat(amount);
+		if(foodIndex === -1) {
 			throw Error(`no mealEntry found for food: ${food.id}`)
 		}
-		setTempMeal(t);
+		if(isNaN(fAmount)) {
+			throw Error('amount is not a float');
+		}
+		const newMealList = Array.from(tempMeal.meals);
+		newMealList.splice(foodIndex, 1, {...tempMeal.meals[foodIndex], amount: fAmount});
+		setTempMeal({...tempMeal, meals: newMealList});
 	};
 
 	const isChecked = food => {
@@ -84,7 +85,7 @@ function MealDialog(props) {
 
 	return (
 		<Dialog open={props.open} onClose={onClose} aria-labelledby="form-dialog-title" maxWidth="sm" fullWidth>
-			<DialogTitle id="form-dialog-title">{dialogTitle}</DialogTitle>
+			<DialogTitle id="form-dialog-title">{isNew() ? 'New Meal' : 'Edit Meal'}</DialogTitle>
 			<DialogContent dividers className={classes.dialogRoot}>
 				<Grid container spacing={2} direction="column">
 					<Grid item>
@@ -104,6 +105,7 @@ function MealDialog(props) {
 			</DialogContent>
 			<DialogActions>
 				<Button onClick={onClose}>Close</Button>
+				{!isNew() ? <Button onClick={onDelete} color="secondary">Delete</Button> : null}
 				<Button onClick={onSave} color="primary">Save</Button>
 			</DialogActions>
 		</Dialog>

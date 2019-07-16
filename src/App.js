@@ -58,7 +58,7 @@ function App() {
 	const handleTabChange = (e, newValue) => dispatch({type: 'selectTab', value: newValue});
 
 	const onFoodAddClicked = () => dispatch({type: 'addFood'});
-	const onMealAddClicked = () => dispatch({type: 'addMeal'});
+	const onMealAddClicked = () => dispatch({type: 'showNewMealDialog'});
 
 	const dialogOpen = Boolean(state.mealDialogItem)
 
