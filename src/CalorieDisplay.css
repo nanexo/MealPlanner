@@ -8,6 +8,10 @@
 	grid-column: 1;
 }
 
+.calorie-display-graphic > * {
+	cursor: inherit !important;
+}
+
 .calorie-display-count {
 	grid-row: calorie-count;
 	grid-column: 1;

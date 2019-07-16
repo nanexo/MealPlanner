@@ -45,16 +45,22 @@ function MealCard(props) {
 					<Typography variant="h6" component="h2" className={classes.cardPadding}>{props.meal.title}</Typography>
 				</Grid>
 				<Grid item>
-					<ButtonBase className={classes.cardPadding} onClick={onMealCardClicked}>
-						<MacrosPanel data={props.meal.macroTotals} size={200} />
+					<ButtonBase onClick={onMealCardClicked}>
+						<Grid container direction="column">
+							<Grid item className={classes.cardPadding}>
+								<MacrosPanel data={props.meal.macroTotals} size={200} />
+							</Grid>
+							<Grid item>
+								<Collapse in={expanded} timeout="auto" unmountOnExit>
+									<List>
+										{mealEntries}
+									</List>
+								</Collapse>
+							</Grid>
+						</Grid>
 					</ButtonBase>
 				</Grid>
 			</Grid>
-			<Collapse in={expanded} timeout="auto" unmountOnExit>
-				<List>
-					{mealEntries}
-				</List>
-			</Collapse>
 			<Divider/>
 			<Box className={classes.cardActionArea}>
 				<Button className={classes.button} onClick={onExpandClicked}>{expanded ? 'COLLAPSE' : 'EXPAND'}</Button>
