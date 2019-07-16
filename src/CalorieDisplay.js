@@ -16,36 +16,25 @@ function CalorieDisplay(props) {
 		{group: 'Fat', value: props.data.fat}
 	];
 	const colors = ['#0088FE', '#00C49F', '#FFBB28'];
-
-	const pieChartOptions = {
-		width: props.size,
-		height: props.half ? (props.size / 2) : props.size,
-		x: props.size / 2,
-		y: props.size / 2,
-		or: (props.size / 2),
-		ir: (props.size / 2) - 5
-	};
-
+	const pieBackgroundStyle = {width: props.size, height: props.height, border: props.size / 10 + 'px solid #ddd', borderRadius: props.size};
 	return (
 		<div className="calorie-display-wrapper">	
 			<div className="calorie-display-graphic">
-				<PieChart width={pieChartOptions.width} height={pieChartOptions.height} margin={{}}>
+				<PieChart width={props.size} height={props.size} margin={{}}>
 					<Pie
 						data={data}
-						cx={pieChartOptions.x}
-						cy={pieChartOptions.y}
-						innerRadius={pieChartOptions.ir}
-						outerRadius={pieChartOptions.or}
-						paddingAngle={3}
+						outerRadius="100%"
+						innerRadius="80%"
 						dataKey="value"
 						isAnimationActive={false}
 					>
 						{
-							data.map((entry, index) => <Cell key={`cell-${index}`} fill={colors[index % colors.length]} />)
+							data.map((entry, index) => entry.value > 0 ? <Cell key={`cell-${index}`} fill={colors[index % colors.length]} /> : null)
 						}
 					</Pie>
 				</PieChart>
 			</div>
+			<div className="calorie-display-graphic" style={pieBackgroundStyle}></div>
 			<Typography variant="h5" component="span" className="calorie-display-count">{cals.toFixed(1)}</Typography>
 			<Typography variant="h6" component="span" className="calorie-display-label">Cals</Typography>
 		</div>

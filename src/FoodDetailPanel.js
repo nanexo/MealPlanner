@@ -24,7 +24,7 @@ function FoodDetailPanel(props) {
 	const createHandler = (name, isFloat) => event => {
 		let value = event.target.value;
 		if(isFloat) {
-			value = parseFloat(value);
+			value = parseFloat(value || 0); // treat falsy as 0
 			if(isNaN(value)) {
 				throw Error(`Unable to parse value ${event.target.value}`);
 			}
