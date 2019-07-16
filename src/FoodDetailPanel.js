@@ -25,6 +25,9 @@ function FoodDetailPanel(props) {
 		let value = event.target.value;
 		if(isFloat) {
 			value = parseFloat(value);
+			if(isNaN(value)) {
+				throw Error(`Unable to parse value ${event.target.value}`);
+			}
 		}
 		dispatch({type: 'updateFood', foodId: props.item.id, field: name, value: value});
 	}

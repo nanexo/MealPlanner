@@ -20,8 +20,23 @@ span {
 	align-items: flex-start;
 	justify-content: center;
 	padding: 1em 0;
+	height: 100%;
 }
 
 .scroll-container {
 	overflow: auto;
+	height: 100%;
+}
+
+.empty-container {
+	width: 100%;
+	display: flex;
+	color: #ddd;
+	justify-content: flex-end;
+	padding-right: 3.5em;
+	height: 133px;
+}
+.empty-container span:first-child {
+	align-self: flex-end;
+	padding-right: 0.5em;
 }

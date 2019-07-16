@@ -136,7 +136,7 @@ function mainReducer(state, action) {
 
 export function appReducer(state, action) {
 	let nextState = mainReducer(state, action);
-	if(['saveMeal', 'updateFood', 'addMeal'].includes(action.type)) {
+	if(['saveMeal', 'updateFood', 'addMeal', 'deleteFood'].includes(action.type)) {
 		nextState = getDerivedMealAttributesState(nextState);
 	}
 	return nextState;

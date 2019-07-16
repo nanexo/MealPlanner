@@ -25,6 +25,9 @@ function FoodDatabase(props) {
 	const classes = useStyles();
 	const [selectedIndex, setSelectedIndex] = useState(0);
 	const selectedItem = props.items[selectedIndex];
+	if(selectedIndex >= props.items.length) {
+		setSelectedIndex(props.items.length - 1);
+	}
 
 	const theme = useTheme();
 	const isMobile = useMediaQuery(theme.breakpoints.down('xs'));

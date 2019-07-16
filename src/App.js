@@ -4,8 +4,9 @@ import MealContainer from './MealContainer';
 import FoodDatabase from './FoodDatabase';
 import MealDialog from './MealDialog';
 import { DispatchProvider, appReducer } from './State'
+import { ReactComponent as Arrow } from './arrow.svg';
 
-import { AppBar, CssBaseline, Toolbar, Button, Tabs, Tab } from '@material-ui/core';
+import { AppBar, CssBaseline, Toolbar, Button, Tabs, Tab, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 import './App.css';
@@ -47,28 +48,41 @@ function App() {
 	const classes = useStyles();
 	const initialState = {
 		...DEMO_DATA,
-		selectedTab: 1,
+		selectedTab: 0,
 		nextFoodId: 100,
 		nextMealId: 100,
 		mealDialogItem: null
 	};
 
 	const [state, dispatch] = React.useReducer(logAppReducer, initialState);
+	const dialogOpen = Boolean(state.mealDialogItem)
 
 	const handleTabChange = (e, newValue) => dispatch({type: 'selectTab', value: newValue});
 
-	const onFoodAddClicked = () => dispatch({type: 'addFood'});
-	const onMealAddClicked = () => dispatch({type: 'showNewMealDialog'});
+	const emptyContent = text => <div class="empty-container"><Typography variant="h3" component="span" color="inherit">{text}</Typography><Arrow fill="currentColor"/></div>;
 
-	const dialogOpen = Boolean(state.mealDialogItem)
+	const mealContainerViews = () => {
+		const mainContent = state.meals.length === 0 ?
+			emptyContent('Add new meals here!') :
+			<MealContainer items={state.meals} className={classes.tabContent} />;
 
-	const renderedContent = state.selectedTab === 0 ?
-		<FoodDatabase items={state.foods} className={classes.tabContent} /> :
-		<MealContainer items={state.meals} className={classes.tabContent} />;
+		const onClick = () => dispatch({type: 'showNewMealDialog'});
+		const primaryButton = <Button variant="contained" color="primary" onClick={onClick}>ADD MEAL</Button>;
+		return [mainContent, primaryButton];
+	}
 
-	const primaryButton = state.selectedTab === 0 ?
-		<Button variant="contained" color="primary" onClick={onFoodAddClicked}>ADD FOOD</Button> :
-		<Button variant="contained" color="primary" onClick={onMealAddClicked}>ADD MEAL</Button>;
+	const foodDatabaseViews = () => {
+		const mainContent = state.foods.length === 0 ?
+			emptyContent('Add new foods here!') :
+			<FoodDatabase items={state.foods} className={classes.tabContent} />;
+
+		const onClick = () => dispatch({type: 'addFood'});
+		const primaryButton = <Button variant="contained" color="primary" onClick={onClick}>ADD FOOD</Button>;
+		return [mainContent, primaryButton];
+	}
+
+
+	const [content, primaryButton] = state.selectedTab === 0 ? foodDatabaseViews() : mealContainerViews();
 
 	return (
 		<DispatchProvider dispatch={dispatch}>
@@ -92,11 +106,11 @@ function App() {
 					</AppBar>
 					<div className="scroll-container">
 						<div className={'tab-content ' + classes.appDimensions}>
-							{renderedContent}
+							{content}
 						</div>
 					</div>
 				</div>
-				{/*key is needed here to redo the state of the component based on new props - any id will do that cant be a normal id*/}
+				{/*key is needed here to redo the state of the component based on new props - if no item is present any id will do that cant be a normal id*/}
 				<MealDialog open={dialogOpen} meal={state.mealDialogItem} foodList={state.foods} key={(state.mealDialogItem || {id: -11}).id} />
 			</React.Fragment>
 		</DispatchProvider>
