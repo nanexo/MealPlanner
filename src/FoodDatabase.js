@@ -10,8 +10,7 @@ import { Paper, Grid, Divider } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
 	root: {
-		maxWidth: 768,
-		width: '100vw'
+		width: '100%'
 	},
 
 	divider: {
@@ -28,7 +27,7 @@ function FoodDatabase(props) {
 	const selectedItem = props.items[selectedIndex];
 
 	const theme = useTheme();
-	const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+	const isMobile = useMediaQuery(theme.breakpoints.down('xs'));
 
 	const desktop =  (
 		<Paper className={classes.root}>

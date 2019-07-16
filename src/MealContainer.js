@@ -7,7 +7,7 @@ function MealContainer(props) {
 	const mealCards = props.items.map((item, index) => <Grid item key={item.id}><MealCard meal={item} /></Grid>)
 	return (
 		<div>
-			<Grid container spacing={2} justify="center">
+			<Grid container spacing={2} justify="space-around">
 				{mealCards}
 			</Grid>
 		</div>

@@ -10,16 +10,20 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import './App.css';
 
+
+
 const useStyles = makeStyles(theme => ({
+
+	appDimensions: {
+		maxWidth: 1024,
+		width: 'calc(100vw - 4em)',
+		minWidth: theme.breakpoints.values['sm'] - 16, // account for scrollbars
+		margin: 'auto'
+	},
 
 	appBar: {
 		borderBottom: `1px solid ${theme.palette.divider}`,
 		alignItems: 'center'
-	},
-
-	toolbar: {
-		maxWidth: 768,
-		width: '100vw'
 	},
 
 	toolbarTitle: {
@@ -28,11 +32,6 @@ const useStyles = makeStyles(theme => ({
 
 	tabs: {
 		flexGrow: 1
-	},
-
-	tabContent: {
-		maxHeight: 'calc(100vh - 112px - 2em)',
-		padding: '1em 0',
 	}
 
 }));
@@ -77,7 +76,7 @@ function App() {
 				<CssBaseline />
 				<div className="wrapper">
 					<AppBar position="static" color="default" elevation={0} className={classes.appBar}>
-						<Toolbar variant="dense" className={classes.toolbar}>
+						<Toolbar variant="dense" className={classes.appDimensions}>
 							<Tabs
 								value={state.selectedTab}
 								onChange={handleTabChange}
@@ -91,8 +90,10 @@ function App() {
 							{primaryButton}
 						</Toolbar>
 					</AppBar>
-					<div className="tab-content">
-						{renderedContent}
+					<div className="scroll-container">
+						<div className={'tab-content ' + classes.appDimensions}>
+							{renderedContent}
+						</div>
 					</div>
 				</div>
 				{/*key is needed here to redo the state of the component based on new props - any id will do that cant be a normal id*/}

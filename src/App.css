@@ -19,4 +19,9 @@ span {
 	display: flex;
 	align-items: flex-start;
 	justify-content: center;
+	padding: 1em 0;
+}
+
+.scroll-container {
+	overflow: auto;
 }
