@@ -14,10 +14,6 @@ const useStyles = makeStyles(theme => ({
 	}
 }));
 
-const clone = (obj) => {
-	return JSON.parse(JSON.stringify(obj));
-}
-
 function MealDialog(props) {
 	const classes = useStyles();
 	const dispatch = useDispatch();

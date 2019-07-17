@@ -59,7 +59,7 @@ function mainReducer(state, action) {
 		}
 		case 'addFood': {
 			const nextFoodId = ++state.nextFoodId;
-			const newFood = {id: state.nextFoodId, title: '', protein: '', carbs: '', fat: '', amount: ''};
+			const newFood = {id: state.nextFoodId, title: '', protein: 0, carbs: 0, fat: 0, servingSizeId: state.settings.servingSizes[0].id};
 			return {
 				...state,
 				foods: [...state.foods, newFood],
@@ -159,7 +159,7 @@ export function appReducer(state, action) {
 
 export const INITIAL_STATE = getDerivedAttributesState({
 	...DEMO_DATA,
-	selectedTab: 1,
+	selectedTab: 0,
 	nextFoodId: 100,
 	nextMealId: 100,
 	mealDialogItem: null,

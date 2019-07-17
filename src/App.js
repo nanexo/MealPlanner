@@ -36,17 +36,10 @@ const useStyles = makeStyles(theme => ({
 
 }));
 
-function logAppReducer(state, action) {
-	console.log('old', state);
-	const newState = appReducer(state, action);
-	console.log('new', newState);
-	return newState;
-}
-
 function App() {
 	const classes = useStyles();
 
-	const [state, dispatch] = React.useReducer(logAppReducer, INITIAL_STATE);
+	const [state, dispatch] = React.useReducer(appReducer, INITIAL_STATE);
 	const dialogOpen = Boolean(state.mealDialogItem)
 
 	const handleTabChange = (e, newValue) => dispatch({type: 'selectTab', value: newValue});

@@ -9,12 +9,14 @@ import './CalorieDisplay.css';
 
 
 function CalorieDisplay(props) {
-	const cals = props.data.protein * 4 + props.data.carbs * 4 + props.data.fat * 9;
 	const data = [
-		{group: 'Protein', value: props.data.protein},
-		{group: 'Carbs', value: props.data.carbs},
-		{group: 'Fat', value: props.data.fat}
+		{group: 'Protein', value: props.data.protein * 4},
+		{group: 'Carbs', value: props.data.carbs * 4},
+		{group: 'Fat', value: props.data.fat * 9}
 	];
+
+	const cals = data.reduce((cals, macro) => cals += macro.value, 0);
+
 	const colors = ['#0088FE', '#00C49F', '#FFBB28'];
 	const pieBackgroundStyle = {width: props.size, height: props.height, border: props.size / 10 + 'px solid #ddd', borderRadius: props.size};
 	return (
@@ -29,7 +31,7 @@ function CalorieDisplay(props) {
 						isAnimationActive={false}
 					>
 						{
-							data.map((entry, index) => entry.value > 0 ? <Cell key={`cell-${index}`} fill={colors[index % colors.length]} /> : null)
+							data.map((entry, index) => <Cell key={`cell-${index}`} fill={colors[index % colors.length]} />)
 						}
 					</Pie>
 				</PieChart>
