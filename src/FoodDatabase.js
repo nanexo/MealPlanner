@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import FoodList from './FoodList';
 import FoodDetailPanel from './FoodDetailPanel';
+import { useDispatch } from './State';
 
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useTheme } from '@material-ui/core/styles';
@@ -23,11 +24,18 @@ const useStyles = makeStyles(theme => ({
 
 function FoodDatabase(props) {
 	const classes = useStyles();
+	const dispatch = useDispatch();
 	const [selectedIndex, setSelectedIndex] = useState(0);
-	const selectedItem = props.items[selectedIndex];
 	if(selectedIndex >= props.items.length) {
 		setSelectedIndex(props.items.length - 1);
 	}
+
+	if(props.selectFoodItem && props.items[selectedIndex] !== props.selectFoodItem) {
+		setSelectedIndex(props.items.findIndex(item => item === props.selectFoodItem));
+		dispatch({type: 'consumeFoodItemSelect'});
+	}
+
+	const selectedItem = props.items[selectedIndex];
 
 	const theme = useTheme();
 	const isMobile = useMediaQuery(theme.breakpoints.down('xs'));

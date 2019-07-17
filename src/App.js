@@ -51,7 +51,8 @@ function App() {
 		selectedTab: 0,
 		nextFoodId: 100,
 		nextMealId: 100,
-		mealDialogItem: null
+		mealDialogItem: null,
+		selectFoodItem: null
 	};
 
 	const [state, dispatch] = React.useReducer(logAppReducer, initialState);
@@ -59,7 +60,7 @@ function App() {
 
 	const handleTabChange = (e, newValue) => dispatch({type: 'selectTab', value: newValue});
 
-	const emptyContent = text => <div class="empty-container"><Typography variant="h3" component="span" color="inherit">{text}</Typography><Arrow fill="currentColor"/></div>;
+	const emptyContent = text => <div className="empty-container"><Typography variant="h3" component="span" color="inherit">{text}</Typography><Arrow fill="currentColor"/></div>;
 
 	const mealContainerViews = () => {
 		const mainContent = state.meals.length === 0 ?
@@ -74,7 +75,7 @@ function App() {
 	const foodDatabaseViews = () => {
 		const mainContent = state.foods.length === 0 ?
 			emptyContent('Add new foods here!') :
-			<FoodDatabase items={state.foods} className={classes.tabContent} />;
+			<FoodDatabase items={state.foods} className={classes.tabContent} selectFoodItem={state.selectFoodItem} />;
 
 		const onClick = () => dispatch({type: 'addFood'});
 		const primaryButton = <Button variant="contained" color="primary" onClick={onClick}>ADD FOOD</Button>;

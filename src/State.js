@@ -55,7 +55,8 @@ function mainReducer(state, action) {
 			return {
 				...state,
 				foods: [...state.foods, newFood],
-				nextFoodId: nextFoodId
+				nextFoodId: nextFoodId,
+				selectFoodItem: newFood
 			};
 		}
 		case 'deleteFood': {
@@ -76,6 +77,12 @@ function mainReducer(state, action) {
 			return {
 				...state,
 				foods: updatedFoodList
+			};
+		}
+		case 'consumeFoodItemSelect': {
+			return {
+				...state,
+				selectFoodItem: null
 			};
 		}
 		case 'addMeal': {
