@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/MealPlanner/static/css/main.90be9660.chunk.css",
+    "main.js": "/MealPlanner/static/js/main.38e2dfb7.chunk.js",
+    "main.js.map": "/MealPlanner/static/js/main.38e2dfb7.chunk.js.map",
+    "runtime~main.js": "/MealPlanner/static/js/runtime~main.c7153f9f.js",
+    "runtime~main.js.map": "/MealPlanner/static/js/runtime~main.c7153f9f.js.map",
+    "static/js/2.dbf2876a.chunk.js": "/MealPlanner/static/js/2.dbf2876a.chunk.js",
+    "static/js/2.dbf2876a.chunk.js.map": "/MealPlanner/static/js/2.dbf2876a.chunk.js.map",
+    "index.html": "/MealPlanner/index.html",
+    "precache-manifest.ddc633b756e9f9c1693acd7887ae56b6.js": "/MealPlanner/precache-manifest.ddc633b756e9f9c1693acd7887ae56b6.js",
+    "service-worker.js": "/MealPlanner/service-worker.js",
+    "static/css/main.90be9660.chunk.css.map": "/MealPlanner/static/css/main.90be9660.chunk.css.map",
+    "static/media/arrow.eec47024.svg": "/MealPlanner/static/media/arrow.eec47024.svg"
+  }
+}
