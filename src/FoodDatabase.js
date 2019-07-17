@@ -50,7 +50,7 @@ function FoodDatabase(props) {
 					<Divider className={classes.divider} />
 				</Grid>
 				<Grid item>
-					<FoodDetailPanel item={selectedItem}/>
+					<FoodDetailPanel item={selectedItem} servingSizes={props.servingSizes}/>
 				</Grid>
 			</Grid>
 		</Paper>

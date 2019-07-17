@@ -1,5 +1,7 @@
 import React, {createContext, useContext} from 'react';
 
+import {DEMO_DATA} from './DemoData';
+
 export const DispatchContext = createContext();
 
 export const DispatchProvider = ({dispatch, children}) => (
@@ -10,13 +12,13 @@ export const DispatchProvider = ({dispatch, children}) => (
 
 export const useDispatch = () => useContext(DispatchContext);
 
-export function getDerivedMealAttributesState(state) {
+function getDerivedAttributesState(state) {
 	const getFoodItem = id => state.foods.find(food => food.id === id);
-
+	const getServingSize = food => state.settings.servingSizes.find(size => size.id === food.servingSizeId);
 	const sumFunc = (name) => {
 		return (agg, item) => {
 			const food = getFoodItem(item.foodId);
-			return agg + (food[name] * (item.amount / food.amount));
+			return agg + (food[name] * (item.amount / getServingSize(food).value));
 		};
 	};
 
@@ -30,14 +32,20 @@ export function getDerivedMealAttributesState(state) {
 
 
 	const updatedMeals = state.meals.map(meal => {
-		const updatedMealEntries = meal.meals.map(mealEntry => ({...mealEntry, foodTitle: getFoodItem(mealEntry.foodId).title}));
+		const updatedMealEntries = meal.meals.map(mealEntry => {
+			const food = getFoodItem(mealEntry.foodId);
+			return {...mealEntry, foodTitle: food.title, amountLabel: getServingSize(food).valueLabel};
+		});
+
 		return {...meal, macroTotals: getMacroTotals(meal), meals: updatedMealEntries};
 	});
 
+	const updatedFoods = state.foods.map(food => ({...food, amountLabel: getServingSize(food).valueLabel}));
 
 	return {
 		...state,
-		meals: updatedMeals
+		meals: updatedMeals,
+		foods: updatedFoods
 	};
 }
 
@@ -144,7 +152,22 @@ function mainReducer(state, action) {
 export function appReducer(state, action) {
 	let nextState = mainReducer(state, action);
 	if(['saveMeal', 'updateFood', 'addMeal', 'deleteFood'].includes(action.type)) {
-		nextState = getDerivedMealAttributesState(nextState);
+		nextState = getDerivedAttributesState(nextState);
 	}
 	return nextState;
 }
+
+export const INITIAL_STATE = getDerivedAttributesState({
+	...DEMO_DATA,
+	selectedTab: 1,
+	nextFoodId: 100,
+	nextMealId: 100,
+	mealDialogItem: null,
+	selectFoodItem: null,
+	settings: {
+		servingSizes: [
+			{id: 0, label: '100g', value: 100, valueLabel: 'g'},
+			{id: 1, label: '1', value: 1, valueLabel: ''}
+		]
+	}
+})

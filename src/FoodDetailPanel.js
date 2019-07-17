@@ -1,7 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 
-import { Grid, TextField, InputAdornment, Button } from '@material-ui/core';
+import { Grid, TextField, InputAdornment, Button, Select, MenuItem, FormControl, InputLabel } from '@material-ui/core';
 
 import CalorieDisplay from './CalorieDisplay';
 import { useDispatch } from './State';
@@ -82,6 +82,19 @@ function FoodDetailPanel(props) {
 						endAdornment: <InputAdornment position="end">g</InputAdornment>
 					}}
 					/>
+			</Grid>
+			<Grid item>
+				<FormControl fullWidth>
+					<InputLabel>Serving Size</InputLabel>
+					<Select
+						label="Serving Size"
+						fullWidth
+						value={props.item.servingSizeId}
+						onChange={createHandler('servingSizeId')}
+					>
+						{props.servingSizes.map(servingSize => <MenuItem key={servingSize.id} value={servingSize.id}>{servingSize.label}</MenuItem>)}
+					</Select>
+				</FormControl>
 			</Grid>
 			<Grid item className={classes.button}>
 				<Button color="secondary" onClick={deleteFoodHandler}>Delete</Button>

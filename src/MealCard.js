@@ -30,7 +30,7 @@ function MealCard(props) {
 	const mealEntries = props.meal.meals.map((mealEntry, index) => {
 		return (
 			<ListItem key={index}>
-				<ListItemText primary={mealEntry.foodTitle} secondary={mealEntry.amount + 'g'} />
+				<ListItemText primary={mealEntry.foodTitle} secondary={mealEntry.amount + mealEntry.amountLabel} />
 			</ListItem>
 			);
 	});

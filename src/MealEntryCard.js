@@ -31,6 +31,8 @@ function MealEntryCard(props) {
 	}
 
 	const onAmountChanged = event => props.onAmountChanged(event.target.value);
+	const textFieldAdornment = props.amountLabel ?
+		{endAdornment: <InputAdornment position="end">{props.amountLabel}</InputAdornment>} : null;
 
 	return (
 		<Paper className={rootClass}>
@@ -46,9 +48,7 @@ function MealEntryCard(props) {
 					disabled={!props.checked}
 					value={props.amount}
 					onChange={onAmountChanged}
-					InputProps={{
-							endAdornment: <InputAdornment position="end">g</InputAdornment>
-						}}
+					InputProps={textFieldAdornment}
 					/>
 			</Box>
 		</Paper>

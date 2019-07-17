@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import React from 'react';
 
-import { List, ListItem, ListItemText, InputBase } from '@material-ui/core';
+import { List, ListItem, ListItemText } from '@material-ui/core';
 
 import './FoodList.css';
 

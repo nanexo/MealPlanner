@@ -1,9 +1,8 @@
 import React from 'react';
-import { DEMO_DATA } from './DemoData';
 import MealContainer from './MealContainer';
 import FoodDatabase from './FoodDatabase';
 import MealDialog from './MealDialog';
-import { DispatchProvider, appReducer } from './State'
+import { DispatchProvider, appReducer, INITIAL_STATE } from './State'
 import { ReactComponent as Arrow } from './arrow.svg';
 
 import { AppBar, CssBaseline, Toolbar, Button, Tabs, Tab, Typography } from '@material-ui/core';
@@ -46,16 +45,8 @@ function logAppReducer(state, action) {
 
 function App() {
 	const classes = useStyles();
-	const initialState = {
-		...DEMO_DATA,
-		selectedTab: 0,
-		nextFoodId: 100,
-		nextMealId: 100,
-		mealDialogItem: null,
-		selectFoodItem: null
-	};
 
-	const [state, dispatch] = React.useReducer(logAppReducer, initialState);
+	const [state, dispatch] = React.useReducer(logAppReducer, INITIAL_STATE);
 	const dialogOpen = Boolean(state.mealDialogItem)
 
 	const handleTabChange = (e, newValue) => dispatch({type: 'selectTab', value: newValue});
@@ -75,7 +66,7 @@ function App() {
 	const foodDatabaseViews = () => {
 		const mainContent = state.foods.length === 0 ?
 			emptyContent('Add new foods here!') :
-			<FoodDatabase items={state.foods} className={classes.tabContent} selectFoodItem={state.selectFoodItem} />;
+			<FoodDatabase items={state.foods} className={classes.tabContent} selectFoodItem={state.selectFoodItem} servingSizes={state.settings.servingSizes} />;
 
 		const onClick = () => dispatch({type: 'addFood'});
 		const primaryButton = <Button variant="contained" color="primary" onClick={onClick}>ADD FOOD</Button>;
