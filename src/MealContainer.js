@@ -4,7 +4,7 @@ import MealCard from './MealCard';
 import { Grid } from '@material-ui/core';
 
 function MealContainer(props) {
-	const mealCards = props.items.map((item, index) => <Grid item key={item.id}><MealCard meal={item} /></Grid>)
+	const mealCards = props.items.map((item, index) => <Grid item key={item.id}><MealCard meal={item} classes={props.classes} /></Grid>)
 	return (
 		<div>
 			<Grid container spacing={2} justify="space-around">

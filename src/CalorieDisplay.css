@@ -1,6 +1,8 @@
 .calorie-display-wrapper {
 	display: grid;
 	grid-template-rows: [calorie-count] 1fr [calorie-label] 1fr;
+	margin: auto;
+	justify-content: center
 }
 
 .calorie-display-graphic {

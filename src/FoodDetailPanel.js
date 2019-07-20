@@ -1,25 +1,17 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 
-import { Grid, TextField, InputAdornment, Button, Select, MenuItem, FormControl, InputLabel } from '@material-ui/core';
+import { Grid, TextField, InputAdornment, Select, MenuItem, FormControl, InputLabel } from '@material-ui/core';
 
 import CalorieDisplay from './CalorieDisplay';
 import { useDispatch } from './State';
 
-const useStyles = makeStyles(theme => ({
-	root: {
-		padding: '2em 3em'
-	},
-	button: {
-		alignSelf: 'flex-end'
-	}
-}));
-
-
 
 function FoodDetailPanel(props) {
-	const classes = useStyles();
 	const dispatch = useDispatch();
+
+	const { item, servingSizes } = props;
+
+	if (!item) return null;
 
 	const createHandler = (name, isFloat) => event => {
 		let value = event.target.value;
@@ -29,21 +21,20 @@ function FoodDetailPanel(props) {
 				throw Error(`Unable to parse value ${event.target.value}`);
 			}
 		}
-		dispatch({type: 'updateFood', foodId: props.item.id, field: name, value: value});
+		dispatch({type: 'updateDetail', object: {...item, [name]: value}});
 	}
-	const deleteFoodHandler = () => dispatch({type: 'deleteFood', foodId: props.item.id});
 
 	return (
-		<Grid container direction="column" spacing={2} className={classes.root}>
+		<Grid container direction="column" spacing={2}>
 			<Grid item>
-				<CalorieDisplay data={props.item} size={220} />
+				<CalorieDisplay data={item} size={220} />
 			</Grid>
 			<Grid item>
 				<TextField
 					label="Title"
 					id="title"
 					fullWidth
-					value={props.item.title}
+					value={item.title}
 					onChange={createHandler('title')}
 					/>
 			</Grid>
@@ -52,7 +43,7 @@ function FoodDetailPanel(props) {
 					label="Protein"
 					id="protein"
 					fullWidth
-					value={props.item.protein}
+					value={item.protein}
 					onChange={createHandler('protein', true)}
 			        InputProps={{
 						endAdornment: <InputAdornment position="end">g</InputAdornment>
@@ -64,7 +55,7 @@ function FoodDetailPanel(props) {
 					label="Carbs"
 					id="carbs"
 					fullWidth
-					value={props.item.carbs}
+					value={item.carbs}
 					onChange={createHandler('carbs', true)}
 					InputProps={{
 						endAdornment: <InputAdornment position="end">g</InputAdornment>
@@ -76,7 +67,7 @@ function FoodDetailPanel(props) {
 					label="Fat"
 					id="fat"
 					fullWidth
-					value={props.item.fat}
+					value={item.fat}
 					onChange={createHandler('fat', true)}
 					InputProps={{
 						endAdornment: <InputAdornment position="end">g</InputAdornment>
@@ -89,15 +80,12 @@ function FoodDetailPanel(props) {
 					<Select
 						label="Serving Size"
 						fullWidth
-						value={props.item.servingSizeId}
+						value={item.servingSizeId}
 						onChange={createHandler('servingSizeId')}
 					>
-						{props.servingSizes.map(servingSize => <MenuItem key={servingSize.id} value={servingSize.id}>{servingSize.label}</MenuItem>)}
+						{servingSizes.map(servingSize => <MenuItem key={servingSize.id} value={servingSize.id}>{servingSize.label}</MenuItem>)}
 					</Select>
 				</FormControl>
-			</Grid>
-			<Grid item className={classes.button}>
-				<Button color="secondary" onClick={deleteFoodHandler}>Delete</Button>
 			</Grid>
 		</Grid>
 	);

@@ -1,33 +1,12 @@
 import React from 'react';
 import { Paper, Typography, TextField, InputAdornment, ButtonBase, Box } from '@material-ui/core';
 import { CheckBox, CheckBoxOutlineBlank } from "@material-ui/icons";
-import { makeStyles } from '@material-ui/core/styles';
-
-const useStyles = makeStyles(theme => ({
-	card: {
-		width: '160px',
-	},
-	cardSelected: {
-		backgroundColor: 'rgba(0, 191, 255, 0.05)'
-	},
-	cardHeader: {
-		padding: theme.spacing(1),
-		width: '100%'
-	},
-	cardHeaderText: {
-		flexGrow: 1
-	},
-	cardBody: {
-		padding: theme.spacing(1)
-	}
-}));
 
 function MealEntryCard(props) {
-	const classes = useStyles();
-
-	let rootClass = classes.card;
+	const classes = props.classes;
+	let rootClass = classes.mealEntryCard;
 	if(props.checked) {
-		rootClass = rootClass + ' ' + classes.cardSelected;
+		rootClass = rootClass + ' ' + classes.mealEntryCardSelected;
 	}
 
 	const onAmountChanged = event => props.onAmountChanged(event.target.value);
@@ -36,11 +15,11 @@ function MealEntryCard(props) {
 
 	return (
 		<Paper className={rootClass}>
-			<ButtonBase onClick={props.onChecked} className={classes.cardHeader}>
-				<Typography align="left" className={classes.cardHeaderText}>{props.title}</Typography>
+			<ButtonBase onClick={props.onChecked} className={classes.mealEntryCardHeader}>
+				<Typography align="left" className={classes.mealEntryCardHeaderText}>{props.title}</Typography>
 				{props.checked ? <CheckBox fontSize="small" htmlColor="#189ad3" /> : <CheckBoxOutlineBlank fontSize="small" htmlColor="#189ad3" />}
 			</ButtonBase>
-			<Box className={classes.cardBody}>
+			<Box className={classes.mealEntryCardBody}>
 				<TextField
 					id="amount"
 					label="Amount"

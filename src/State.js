@@ -12,6 +12,10 @@ export const DispatchProvider = ({dispatch, children}) => (
 
 export const useDispatch = () => useContext(DispatchContext);
 
+function clone(object) {
+	return JSON.parse(JSON.stringify(object));
+}
+
 function getDerivedAttributesState(state) {
 	const getFoodItem = id => state.foods.find(food => food.id === id);
 	const getServingSize = food => state.settings.servingSizes.find(size => size.id === food.servingSizeId);
@@ -49,6 +53,116 @@ function getDerivedAttributesState(state) {
 	};
 }
 
+function foodReducer(state, action) {
+	if(action.type === 'primaryAction') {
+		action.type = 'showDetail';
+	}
+	switch(action.type) {
+		case 'showDetail': {
+			let tempFood;
+			if(action.context) {
+				tempFood = clone(action.context);
+			} else {
+				// create a new empty object
+				const nextFoodId = ++state.nextFoodId;
+				tempFood = {id: state.nextFoodId, isNew: true, title: '', protein: 0, carbs: 0, fat: 0, servingSizeId: state.settings.servingSizes[0].id};
+				state = {...state, nextFoodId: nextFoodId};
+			}
+			return {
+				...state,
+				detail: {
+					screen: 'foodDetail',
+					context: action.context,
+					object: tempFood,
+					title: (action.context ? 'Edit ' : 'Add ') + (state.selectedTab === 0 ? 'Food' : 'Meal')
+				}
+			};
+		}
+		case 'persistDetail': {
+			delete state.detail.object.isNew;
+			let newFoodList;
+			if(state.detail.context) {
+				newFoodList = [...state.foods];
+				const foodIndex = newFoodList.findIndex(food => food.id === state.detail.context.id);
+				newFoodList.splice(foodIndex, 1, state.detail.object);
+			} else {
+				newFoodList = [...state.foods, state.detail.object]
+			}
+			return {
+				...state,
+				foods: newFoodList,
+				detail: null
+			};
+		}
+		case 'deleteDetail': {
+			const updatedMealList = state.meals.map(meal => ({...meal, meals: meal.meals.filter(mealEntry => mealEntry.foodId !== state.detail.context.id)}));
+			return {
+				...state,
+				foods: state.foods.filter(food => food !== state.detail.context),
+				meals: updatedMealList,
+				detail: null
+			};
+		}
+		default: {
+			return state;
+		}
+	}
+}
+
+function mealReducer(state, action) {
+	if(action.type === 'primaryAction') {
+		action.type = 'showDetail';
+	}
+	switch(action.type) {
+		case 'showDetail': {
+			let tempMeal;
+			if(action.context) {
+				tempMeal = clone(action.context);
+			} else {
+				// create a new empty object
+				const nextMealId = ++state.nextMealId;
+				tempMeal = {id: state.nextMealId, isNew: true, title: '', meals: []};
+				state = {...state, nextMealId: nextMealId};
+			}
+			return {
+				...state,
+				detail: {
+					screen: 'mealDetail',
+					context: action.context,
+					object: tempMeal,
+					title: (action.context ? 'Edit ' : 'Add ') + (state.selectedTab === 0 ? 'Food' : 'Meal')
+				}
+			};
+		}
+		case 'persistDetail': {
+			delete state.detail.object.isNew;
+			let newMealList;
+			if(state.detail.context) {
+				newMealList = [...state.meals];
+				const mealIndex = newMealList.findIndex(meal => meal.id === state.detail.context.id);
+				newMealList.splice(mealIndex, 1, state.detail.object);
+			} else {
+				newMealList = [...state.meals, state.detail.object]
+			}
+			return {
+				...state,
+				meals: newMealList,
+				detail: null
+			};
+		}
+		case 'deleteDetail': {
+			return {
+				...state,
+				meals: state.meals.filter(meal => meal !== state.detail.context),
+				detail: null
+			};
+		}
+		default: {
+			return state;
+		}
+	}
+}
+
 function mainReducer(state, action) {
 	switch(action.type) {
 		case 'selectTab': {
@@ -57,91 +171,19 @@ function mainReducer(state, action) {
 				selectedTab: action.value
 			};
 		}
-		case 'addFood': {
-			const nextFoodId = ++state.nextFoodId;
-			const newFood = {id: state.nextFoodId, title: '', protein: 0, carbs: 0, fat: 0, servingSizeId: state.settings.servingSizes[0].id};
+		case 'closeDetail': {
 			return {
 				...state,
-				foods: [...state.foods, newFood],
-				nextFoodId: nextFoodId,
-				selectFoodItem: newFood
+				detail: null
 			};
 		}
-		case 'deleteFood': {
-			const updatedMealList = state.meals.map(meal => ({...meal, meals: meal.meals.filter(mealEntry => mealEntry.foodId !== action.foodId)}));
+		case 'updateDetail': {
 			return {
 				...state,
-				foods: state.foods.filter(food => food.id !== action.foodId),
-				meals: updatedMealList
-			};
-		}
-		case 'updateFood': {
-			const currentFoodIndex = state.foods.findIndex(food => food.id === action.foodId);
-			const currentFood = state.foods[currentFoodIndex];
-			const updatedFood = {...currentFood, [action.field]: action.value};
-			const updatedFoodList = [...state.foods];
-			updatedFoodList.splice(currentFoodIndex, 1, updatedFood);
-
-			return {
-				...state,
-				foods: updatedFoodList
-			};
-		}
-		case 'consumeFoodItemSelect': {
-			return {
-				...state,
-				selectFoodItem: null
-			};
-		}
-		case 'addMeal': {
-			const nextMealId = ++state.nextMealId;
-			const newMeal = {id: state.nextMealId, title: '', meals: []};
-			return {
-				...state,
-				meals: [...state.meals, newMeal],
-				nextMealId: nextMealId
-			};
-		}
-		case 'deleteMeal': {
-			return {
-				...state,
-				meals: state.meals.filter(meal => meal.id !== action.mealId)
-			};
-		}
-		case 'saveMeal': {
-			const updatedMealList = [...state.meals];
-
-			if(action.meal.isNew) {
-				delete action.meal.isNew;
-				updatedMealList.push(action.meal);
-			} else {
-				const mealIndex = state.meals.findIndex(meal => meal.id === action.meal.id);
-				updatedMealList[mealIndex] = action.meal;
-			}
-			return {
-				...state,
-				meals: updatedMealList
-			};
-		}
-		case 'showNewMealDialog': {
-			const nextMealId = ++state.nextMealId;
-			const newMeal = {id: state.nextMealId, isNew: true, title: '', meals: []};
-			return {
-				...state,
-				mealDialogItem: newMeal,
-				nextMealId: nextMealId
-			};
-		}
-		case 'showMealDialog': {
-			return {
-				...state,
-				mealDialogItem: state.meals.find(meal => meal.id === action.mealId)
-			};
-		}
-		case 'closeMealDialog': {
-			return {
-				...state,
-				mealDialogItem: null
+				detail: {
+					...state.detail,
+					object: action.object
+				}
 			};
 		}
 		default:
@@ -150,11 +192,25 @@ function mainReducer(state, action) {
 }
 
 export function appReducer(state, action) {
-	let nextState = mainReducer(state, action);
-	if(['saveMeal', 'updateFood', 'addMeal', 'deleteFood'].includes(action.type)) {
-		nextState = getDerivedAttributesState(nextState);
-	}
-	return nextState;
+	const reducerQueue = [
+		{
+			reducer: mainReducer,
+			condition: () => true
+		},
+		{
+			reducer: foodReducer,
+			condition: () => state.selectedTab === 0
+		},
+		{
+			reducer: mealReducer,
+			condition: () => state.selectedTab === 1
+		},
+		{
+			reducer: getDerivedAttributesState,
+			condition: () => ['persistDetail', 'deleteDetail'].includes(action.type)
+		}	
+	];
+	return reducerQueue.reduce(((state, reducerObj) => reducerObj.condition() ? reducerObj.reducer(state, action) : state), state);
 }
 
 export const INITIAL_STATE = getDerivedAttributesState({
@@ -162,8 +218,7 @@ export const INITIAL_STATE = getDerivedAttributesState({
 	selectedTab: 0,
 	nextFoodId: 100,
 	nextMealId: 100,
-	mealDialogItem: null,
-	selectFoodItem: null,
+	detail: null,
 	settings: {
 		servingSizes: [
 			{id: 0, label: '100g', value: 100, valueLabel: 'g'},
