@@ -1,14 +1,26 @@
 import React from 'react';
 import { Paper, Grid, Divider, List, ListItem, ListItemText, Typography, Button, Collapse, Box, ButtonBase } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 
 import MacrosPanel from './MacrosPanel';
 import { useDispatch } from './State';
 
+const useStyles = makeStyles(theme => ({
+	cardPadding: {
+		padding: '1rem'
+	},
+	cardActionArea: {
+		padding: '0.5em'
+	}
+}));
+
+
 function MealCard(props) {
 	const [expanded, setExpanded] = React.useState(false);
 	const dispatch = useDispatch();
+	const classes = useStyles();
 
-	const { meal, classes } = props;
+	const { meal } = props;
 
 	const mealEntries = meal.meals.map((mealEntry, index) => {
 		return (
@@ -22,15 +34,15 @@ function MealCard(props) {
 	const onMealCardClicked = () => dispatch({type: 'showDetail', context: meal});
 
 	return (
-		<Paper className={classes.card}>
+		<Paper>
 			<Grid container direction="column">
 				<Grid item>
-					<Typography variant="h6" component="h2" className={classes.mealCardPadding}>{meal.title}</Typography>
+					<Typography variant="h6" component="h2" className={classes.cardPadding}>{meal.title}</Typography>
 				</Grid>
 				<Grid item>
 					<ButtonBase onClick={onMealCardClicked}>
 						<Grid container direction="column">
-							<Grid item className={classes.mealCardPadding}>
+							<Grid item className={classes.cardPadding}>
 								<MacrosPanel data={meal.macroTotals} size={200} />
 							</Grid>
 							<Grid item>
@@ -45,7 +57,7 @@ function MealCard(props) {
 				</Grid>
 			</Grid>
 			<Divider/>
-			<Box className={classes.mealCardActionArea}>
+			<Box className={classes.cardActionArea}>
 				<Button className={classes.button} onClick={onExpandClicked}>{expanded ? 'COLLAPSE' : 'EXPAND'}</Button>
 			</Box>
 		</Paper>

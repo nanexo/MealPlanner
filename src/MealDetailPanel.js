@@ -6,11 +6,9 @@ import { useDispatch } from './State';
 
 function MealDetailPanel(props) {
 	const dispatch = useDispatch();
-
-	const {item, foodList, classes} = props;
+	const {item, foodList} = props;
 
 	if(!item) return null;
-
 
 	const isSelected = food => Boolean(item.meals.find(mealEntry => mealEntry.foodId === food.id));
 	const getAmount = food => ((item.meals.find(mealEntry => mealEntry.foodId === food.id) || {}).amount || 0);
@@ -46,14 +44,13 @@ function MealDetailPanel(props) {
 					amount={item.amount}
 					checked={item.selected}
 					onChecked={createCheckHandler(index)}
-					onAmountChanged={createAmountChangedHandler(index)} 
-					classes={classes}
+					onAmountChanged={createAmountChangedHandler(index)}
 				/>
 			</Grid>)
 	});
 
 	return (
-		<Grid container spacing={2} direction="column" className={classes.mealDetailPanelRoot}>
+		<Grid container spacing={2} direction="column">
 			<Grid item>
 				<TextField
 					autoFocus
@@ -64,7 +61,7 @@ function MealDetailPanel(props) {
 					onChange={onChangeTitle}
 					/>
 			</Grid>
-			<Grid item container xs spacing={2} justify="space-between">
+			<Grid item container xs spacing={2} justify="center">
 				{mealEntryCards}
 			</Grid>
 		</Grid>
