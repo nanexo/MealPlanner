@@ -61,14 +61,14 @@ export default function ViewRoot(props) {
 	const { views, state } = props;
 
 	const foodView = state.foods.length === 0 ? emptyContent('Add new foods here!') :
-		<FoodList elevation={1} items={state.foods} servingSizes={state.settings.servingSizes} />;
+		<FoodList elevation={1} items={state.foods} servingSizes={state.servingSizes} />;
 
 	const mealView = state.meals.length === 0 ? emptyContent('Add new meals here!') : <MealContainer items={state.meals}/>;
 
 	let detailContent = null;
 	if(state.detail) {
 		detailContent = state.selectedTab === 0 ?
-			<FoodDetailPanel item={state.detail.object} servingSizes={state.settings.servingSizes} /> :
+			<FoodDetailPanel item={state.detail.object} servingSizes={state.servingSizes} /> :
 			<MealDetailPanel foodList={state.foods} item={state.detail.object} />
 	}
 

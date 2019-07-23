@@ -12,13 +12,10 @@ export const DispatchProvider = ({dispatch, children}) => (
 
 export const useDispatch = () => useContext(DispatchContext);
 
-function clone(object) {
-	return JSON.parse(JSON.stringify(object));
-}
-
 function getDerivedAttributesState(state) {
 	const getFoodItem = id => state.foods.find(food => food.id === id);
-	const getServingSize = food => state.settings.servingSizes.find(size => size.id === food.servingSizeId);
+	const getServingSize = food => state.servingSizes.find(size => size.id === food.servingSizeId);
+
 	const sumFunc = (name) => {
 		return (agg, item) => {
 			const food = getFoodItem(item.foodId);
@@ -53,28 +50,18 @@ function getDerivedAttributesState(state) {
 	};
 }
 
+const emptyFoodItem = {isNew: true, title: '', protein: 0, carbs: 0, fat: 0, servingSizeId: 0};
 function foodReducer(state, action) {
-	if(action.type === 'primaryAction') {
-		action.type = 'showDetail';
-	}
 	switch(action.type) {
 		case 'showDetail': {
-			let tempFood;
-			if(action.context) {
-				tempFood = clone(action.context);
-			} else {
-				// create a new empty object
-				const nextFoodId = ++state.nextFoodId;
-				tempFood = {id: state.nextFoodId, isNew: true, title: '', protein: 0, carbs: 0, fat: 0, servingSizeId: state.settings.servingSizes[0].id};
-				state = {...state, nextFoodId: nextFoodId};
-			}
+			const copyFoodItem = action.context || emptyFoodItem;
 			return {
 				...state,
 				detail: {
 					screen: 'foodDetail',
 					context: action.context,
-					object: tempFood,
-					title: (action.context ? 'Edit ' : 'Add ') + (state.selectedTab === 0 ? 'Food' : 'Meal')
+					object: {...copyFoodItem},
+					title: (action.context ? 'Edit' : 'Add') + ' Food'
 				}
 			};
 		}
@@ -109,28 +96,18 @@ function foodReducer(state, action) {
 	}
 }
 
+const emptyMealItem = {isNew: true, title: '', meals: []};
 function mealReducer(state, action) {
-	if(action.type === 'primaryAction') {
-		action.type = 'showDetail';
-	}
 	switch(action.type) {
 		case 'showDetail': {
-			let tempMeal;
-			if(action.context) {
-				tempMeal = clone(action.context);
-			} else {
-				// create a new empty object
-				const nextMealId = ++state.nextMealId;
-				tempMeal = {id: state.nextMealId, isNew: true, title: '', meals: []};
-				state = {...state, nextMealId: nextMealId};
-			}
+			const copyMealItem = action.context || emptyMealItem;
 			return {
 				...state,
 				detail: {
 					screen: 'mealDetail',
 					context: action.context,
-					object: tempMeal,
-					title: (action.context ? 'Edit ' : 'Add ') + (state.selectedTab === 0 ? 'Food' : 'Meal')
+					object: {...copyMealItem, meals: [...copyMealItem.meals]},
+					title: (action.context ? 'Edit' : 'Add') + ' Meal'
 				}
 			};
 		}
@@ -164,6 +141,9 @@ function mealReducer(state, action) {
 }
 
 function mainReducer(state, action) {
+	if(action.type === 'primaryAction') {
+		action.type = 'showDetail';
+	}
 	switch(action.type) {
 		case 'selectTab': {
 			return {
@@ -216,13 +196,9 @@ export function appReducer(state, action) {
 export const INITIAL_STATE = getDerivedAttributesState({
 	...DEMO_DATA,
 	selectedTab: 0,
-	nextFoodId: 100,
-	nextMealId: 100,
 	detail: null,
-	settings: {
-		servingSizes: [
-			{id: 0, label: '100g', value: 100, valueLabel: 'g'},
-			{id: 1, label: '1', value: 1, valueLabel: ''}
-		]
-	}
+	servingSizes: [
+		{id: 0, label: '100g', value: 100, valueLabel: 'g'},
+		{id: 1, label: '1', value: 1, valueLabel: ''}
+	]
 })

@@ -30,8 +30,8 @@ function MealEntryCard(props) {
 	}
 
 	const onAmountChanged = event => props.onAmountChanged(event.target.value);
-	const textFieldAdornment = props.amountLabel &&
-		{endAdornment: <InputAdornment position="end">{props.amountLabel}</InputAdornment>};
+	const textFieldAdornment = props.amountLabel ?
+		{endAdornment: <InputAdornment position="end">{props.amountLabel}</InputAdornment>}:null;
 
 	return (
 		<Paper className={rootClass}>
