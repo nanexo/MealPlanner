@@ -5,14 +5,14 @@ import { configureStore, getDefaultMiddleware } from 'redux-starter-kit'
 import './index.css';
 import App from './App';
 import reducers from './reducers/reducers';
-import { persist, getAll } from './PersistentMiddleware';
+import { persist, getPersistedState } from './PersistentMiddleware';
 import * as serviceWorker from './serviceWorker';
 
 
 async function load() {
 	const store = configureStore({
 		reducer: reducers,
-		preloadedState: await getAll(),
+		preloadedState: await getPersistedState(),
 		middleware: [
 			persist,
 			...getDefaultMiddleware()

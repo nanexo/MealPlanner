@@ -1,9 +1,20 @@
 import { openDB } from 'idb';
 import { saveItem, deleteItem } from './reducers/detailReducer';
+import { dismissDemoDataNotice } from './reducers/settingsReducer';
+import { demoFoods, demoMeals } from './DemoData';
 
 const foodDb = 'foods';
 const mealDb = 'meals';
 const servingSizeDb = 'servingSize';
+const settingsDb = 'settings';
+
+
+function addDemoFoods(store) {
+	demoFoods.forEach(item => store.add(item));
+}
+function addDemoMeals(store) {
+	demoMeals.forEach(meal => store.add(meal));
+}
 
 const dbPromise = openDB('MealPlanner', 1, {
 	upgrade(db, oldVersion) {
@@ -13,57 +24,57 @@ const dbPromise = openDB('MealPlanner', 1, {
 				autoIncrement: true
 			});
 			foodStore.createIndex('id', 'id');
+			addDemoFoods(foodStore);
+
 			const mealStore = db.createObjectStore(mealDb, {
 				keyPath: 'id',
 				autoIncrement: true
 			});
 			mealStore.createIndex('id', 'id');
+			addDemoMeals(mealStore);
+
 			const servingSizesStore = db.createObjectStore(servingSizeDb, {
 				keyPath: 'id',
 				autoIncrement: true
 			});
 			servingSizesStore.createIndex('id', 'id');
+
+			const settingsStore = db.createObjectStore(settingsDb);
+			settingsStore.add(false, 'demoDataNoticeShown');
 		}
 	}
 });
 
 
-
-function storePrototype(objectStoreName) {
+function storeFactory(objectStoreName) {
 	return {
-		getAll() {
-			return dbPromise.then(
-				store => store.getAll(objectStoreName)
-			);
-		},
-		save(item) {
-			console.log('saving item');
-			return dbPromise.then(
+		getAll: () => dbPromise.then(store => store.getAll(objectStoreName)),
+		get: key => dbPromise.then(store => store.get(objectStoreName, key)),
+		save: item => dbPromise.then(
 				store => store.put(objectStoreName, item)
-				.then(key => store.get(objectStoreName, key))
-			);
-		},
-		delete(id) {
-			return dbPromise.then(
-				store => store.delete(objectStoreName, id)
-			);
-		}
+				.then(key => store.get(objectStoreName, key))),
+		'delete': id => dbPromise.then(store => store.delete(objectStoreName, id)),
+		put: (value, key) => dbPromise.then(store => store.put(objectStoreName, value, key))
 	}
 }
 
 
-export async function getAll() {
+export async function getPersistedState() {
 	return {
 		foods: await stores.food.getAll(),
-		meals: await stores.meal.getAll()
+		meals: await stores.meal.getAll(),
+		settings: {
+			showDemoDataNotice: !(await stores.settings.get('demoDataNoticeShown'))
+		}
 	};
 }
 
 
 const stores = {
-	meal: storePrototype(mealDb),
-	food: storePrototype(foodDb),
-	servingSize: storePrototype(servingSizeDb)
+	meal: storeFactory(mealDb),
+	food: storeFactory(foodDb),
+	servingSize: storeFactory(servingSizeDb),
+	settings: storeFactory(settingsDb)
 }
 
 
@@ -84,6 +95,12 @@ export const persist = store => next => action => {
 			.then(store.dispatch);
 			break;
 		}
+		case dismissDemoDataNotice.type: {
+			Promise.resolve(stores.settings.put(true, 'demoDataNoticeShown')).then(() => store.dispatch({type: action.type}));
+			break;
+		}
+		default:
+			return;
 	}
 };
 

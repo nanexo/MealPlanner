@@ -3,34 +3,7 @@ import { saveItem, deleteItem } from './detailReducer';
 
 const mealsSlice = createSlice({
 	slice: 'meals',
-	initialState: [
-		{
-			id: 0,
-			title: 'Lunch', 
-			meals: [
-				{foodId: 0, amount: 200},
-				{foodId: 1, amount: 100},
-				{foodId: 2, amount: 100},
-				{foodId: 3, amount: 100},
-			]
-		},
-		{
-			id: 1,
-			title: 'Dinner', 
-			meals: [
-				{foodId: 0, amount: 200},
-				{foodId: 4, amount: 120},
-				{foodId: 5, amount: 50},
-			]
-		},
-		{
-			id: 2,
-			title: 'Shakes',
-			meals: [
-				{foodId: 6, amount: 2}
-			]
-		}
-	],
+	initialState: [],
 	extraReducers: {
 		[saveItem]: (state, action) => {
 			if(action.payload.type !== 'meal')

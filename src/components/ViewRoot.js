@@ -6,10 +6,11 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import { selectTab } from '../reducers/viewReducer';
 import { newItem } from '../reducers/detailReducer';
-import FoodList from '../components/FoodList';
 import views from '../screenDefinitions';
-import MealContainer from '../components/MealContainer';
-import DetailDialog from '../components/DetailDialog';
+import FoodList from './FoodList';
+import MealContainer from './MealContainer';
+import DetailDialog from './DetailDialog';
+import DemoDataNotice from './DemoDataNotice';
 import { ReactComponent as Arrow } from '../vectors/arrow.svg';
 
 const useStyles = makeStyles(theme => {
@@ -92,6 +93,7 @@ function ViewRoot(props) {
 				</div>
 			</div>
 			<DetailDialog />
+			<DemoDataNotice />
 		</React.Fragment>
 	);
 }
