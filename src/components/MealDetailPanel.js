@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { TextField, Grid } from '@material-ui/core';
 
 import MealEntryCard from './MealEntryCard';
-import { updateItem } from './detailReducer';
+import { updateItem } from '../reducers/detailReducer';
 
 function MealDetailPanel(props) {
 	const { item, foodList, updateItem } = props;

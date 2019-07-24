@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { editItem } from './detailReducer';
+import { editItem } from '../reducers/detailReducer';
 
 import { Paper, List, ListItem, ListItemText } from '@material-ui/core';
 

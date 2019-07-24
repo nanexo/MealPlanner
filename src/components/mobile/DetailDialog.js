@@ -6,7 +6,7 @@ import { ArrowBack, Delete, Save } from '@material-ui/icons';
 
 import MealDetailPanel from '../MealDetailPanel';
 import FoodDetailPanel from '../FoodDetailPanel';
-import { closeItem, saveItem, deleteItem } from '../detailReducer';
+import { closeItem, saveItem, deleteItem } from '../../reducers/detailReducer';
 
 const useStyles = makeStyles(theme => ({
 	appBar: {

@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Grid, TextField, InputAdornment, Select, MenuItem, FormControl, InputLabel } from '@material-ui/core';
 
 import CalorieDisplay from './CalorieDisplay';
-import { updateItem } from './detailReducer';
+import { updateItem } from '../reducers/detailReducer';
 
 
 function FoodDetailPanel(props) {

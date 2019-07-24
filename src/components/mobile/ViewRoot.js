@@ -5,13 +5,13 @@ import { Add, Storage, Fastfood } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/core/styles';
 
 
-import { selectTab } from '../viewReducer';
-import { newItem } from '../detailReducer';
-import FoodList from '../FoodList';
-import views from '../screenDefinitions';
-import MealContainer from '../MealContainer';
+import { selectTab } from '../../reducers/viewReducer';
+import { newItem } from '../../reducers/detailReducer';
+import FoodList from '../../components/FoodList';
+import views from '../../screenDefinitions';
+import MealContainer from '../../components/MealContainer';
 import DetailDialog from './DetailDialog'
-import { ReactComponent as Arrow } from '../arrow.svg';
+import { ReactComponent as Arrow } from '../../vectors/arrow.svg';
 
 const useStyles = makeStyles(theme => ({
 	appBar: {

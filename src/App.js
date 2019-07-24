@@ -1,7 +1,7 @@
 import React from 'react';
 
-import ViewRoot from './ViewRoot';
-import ViewRootMobile from './mobile/ViewRoot';
+import ViewRoot from './components/ViewRoot';
+import ViewRootMobile from './components/mobile/ViewRoot';
 
 import { CssBaseline, useMediaQuery, useTheme } from '@material-ui/core';
 

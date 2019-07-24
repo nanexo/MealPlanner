@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { closeItem, saveItem, deleteItem } from './detailReducer';
+import { closeItem, saveItem, deleteItem } from '../reducers/detailReducer';
 import MealDetailPanel from './MealDetailPanel';
 import FoodDetailPanel from './FoodDetailPanel';
 

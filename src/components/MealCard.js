@@ -5,7 +5,7 @@ import { Paper, Grid, Divider, List, ListItem, ListItemText, Typography, Button,
 import { makeStyles } from '@material-ui/core/styles';
 
 import MacrosPanel from './MacrosPanel';
-import { editItem } from './detailReducer';
+import { editItem } from '../reducers/detailReducer';
 
 const useStyles = makeStyles(theme => ({
 	cardPadding: {
