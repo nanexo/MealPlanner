@@ -31,9 +31,6 @@ const mealsSlice = createSlice({
 			]
 		}
 	],
-	reducers: {
-		updateMeals(state, action) {}
-	},
 	extraReducers: {
 		[saveItem]: (state, action) => {
 			if(action.payload.type !== 'meal')
@@ -57,6 +54,5 @@ const mealsSlice = createSlice({
 	}
 });
 
-const { actions, reducer } = mealsSlice;
-export const { updateMeals } = actions;
+const { reducer } = mealsSlice;
 export default reducer;

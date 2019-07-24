@@ -20,8 +20,8 @@ function DetailDialog(props) {
 	if(!item) return null;
 
 	const onClose = () => closeItem();
-	const onSave = () => saveItem({item: item, type: itemType});
-	const onDelete = () => deleteItem({id: item.id, type: itemType});
+	const onSave = () => saveItem({item: item, type: itemType, persist: true});
+	const onDelete = () => deleteItem({id: item.id, type: itemType, persist: true});
 	return (
 		<Dialog open={Boolean(item)} onClose={onClose} aria-labelledby="form-dialog-title" maxWidth={size} fullWidth>
 			<DialogTitle id="form-dialog-title">{title}</DialogTitle>

@@ -12,9 +12,6 @@ const foodsSlice = createSlice({
 		{id: 5, title: 'Edamame', protein: 12, carbs: 11, fat: 4, servingSizeId: 0},
 		{id: 6, title: 'Iso100', protein: 25, carbs: 0.8, fat: 0.6, servingSizeId: 1}
 	],
-	reducers: {
-		updateItems(state, action) {},
-	},
 	extraReducers: {
 		[saveItem]: (state, action) => {
 			if(action.payload.type !== 'food')
@@ -37,6 +34,5 @@ const foodsSlice = createSlice({
 	}
 });
 
-const { actions, reducer } = foodsSlice;
-export const { createFood, updateFood, editFood, closeFood, deleteFood } = actions;
+const { reducer } = foodsSlice;
 export default reducer;
