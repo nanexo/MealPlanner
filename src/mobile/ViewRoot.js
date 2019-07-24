@@ -1,15 +1,15 @@
 import React from 'react';
-import { useDispatch } from '../State'
-
-
+import { connect } from 'react-redux';
 import { AppBar, Toolbar, BottomNavigation, BottomNavigationAction, Fab, Typography } from '@material-ui/core';
-import { Add } from '@material-ui/icons';
+import { Add, Storage, Fastfood } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/core/styles';
 
+
+import { selectTab } from '../viewReducer';
+import { newItem } from '../detailReducer';
 import FoodList from '../FoodList';
+import views from '../screenDefinitions';
 import MealContainer from '../MealContainer';
-import FoodDetailPanel from '../FoodDetailPanel';
-import MealDetailPanel from '../MealDetailPanel';
 import DetailDialog from './DetailDialog'
 import { ReactComponent as Arrow } from '../arrow.svg';
 
@@ -50,27 +50,25 @@ function emptyContent(text) {
 	);
 }
 
-export default function ViewRoot(props) {
+
+const viewMap = {
+	'food': <FoodList elevation={0} />,
+	'meal': <MealContainer />
+}
+
+const iconMap = {
+	'storage': <Storage />,
+	'fastfood': <Fastfood />
+}
+
+function ViewRoot(props) {
 	const classes = useStyles();
-	const dispatch = useDispatch();
 
-	const { views, state } = props;
+	const { contentEmpty, selectedTab, selectedView, emptyText, selectTab, newItem } = props;
 
-	const foodView = state.foods.length === 0 ? emptyContent('Add new foods here!') :
-		<FoodList elevation={0} items={state.foods} servingSizes={state.servingSizes} />;
+	const contentView = contentEmpty ? emptyContent(emptyText) : viewMap[selectedView];
 
-	const mealView = state.meals.length === 0 ? emptyContent('Add new meals here!') : <MealContainer items={state.meals}/>;
-
-	let detailContent = null;
-	if(state.detail) {
-		detailContent = state.selectedTab === 0 ?
-			<FoodDetailPanel item={state.detail.object} servingSizes={state.servingSizes} /> :
-			<MealDetailPanel foodList={state.foods} item={state.detail.object} />
-	}
-
-
-	const onTabChange = (e, newValue) => dispatch({type: 'selectTab', value: newValue});
-	const onPrimaryAction = () => dispatch({type: 'primaryAction'});
+	const onTabChange = (e, newValue) => selectTab(newValue);
 	return (
 		<React.Fragment>
 			<AppBar position="static" color="default" elevation={0} className={classes.appBar}>
@@ -79,20 +77,30 @@ export default function ViewRoot(props) {
 				</Toolbar>
 			</AppBar>
 			<div className={classes.scrollContainer}>
-				{state.selectedTab === 0 ? foodView : mealView}
+				{contentView}
 			</div>
 			<BottomNavigation
-				value={state.selectedTab}
+				value={selectedTab}
 				onChange={onTabChange}
 				showLabels
 				className={classes.bottomBar}
 			>
-				{views.map(view => <BottomNavigationAction label={view.label} icon={view.icon} key={'bottomNav-' + view.view} />)}
+				{views.map(view => <BottomNavigationAction label={view.label} icon={iconMap[view.icon]} key={'bottomNav-' + view.view} />)}
 			</BottomNavigation>
-			<Fab color="primary" aria-label="Add" className={classes.fab} onClick={onPrimaryAction}><Add /></Fab>
-			<DetailDialog item={state.detail}>
-				{detailContent}
-			</DetailDialog>
+			<Fab color="primary" aria-label="Add" className={classes.fab} onClick={() => newItem(selectedView)}><Add /></Fab>
+			<DetailDialog />
 		</React.Fragment>
 	);
 }
+
+const mapStateToProps = state => {
+	const selectedTab = state.view.selectedTab;
+	return {
+		contentEmpty: (state.view.selectedTab === 0 ? state.foods : state.meals).length === 0,
+		selectedTab: selectedTab,
+		selectedView: views[selectedTab].view,
+		emptyText: views[selectedTab].emptyText
+	};
+}
+
+export default connect(mapStateToProps, { selectTab, newItem })(ViewRoot);

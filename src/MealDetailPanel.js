@@ -1,12 +1,12 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { TextField, Grid } from '@material-ui/core';
 
 import MealEntryCard from './MealEntryCard';
-import { useDispatch } from './State';
+import { updateItem } from './detailReducer';
 
 function MealDetailPanel(props) {
-	const dispatch = useDispatch();
-	const {item, foodList} = props;
+	const { item, foodList, updateItem } = props;
 
 	if(!item) return null;
 
@@ -14,11 +14,11 @@ function MealDetailPanel(props) {
 	const getAmount = food => ((item.meals.find(mealEntry => mealEntry.foodId === food.id) || {}).amount || 0);
 	const foodCardItems = foodList.map(food => ({...food, selected: isSelected(food), amount: getAmount(food)}));
 
-	const onChangeTitle = event => dispatch({type: 'updateDetail', object: {...item, title: event.target.value}});
+	const onChangeTitle = event => updateItem({field: 'title', value: event.target.value});
 
 	const update = () => {
 		const mealEntries = foodCardItems.filter(item => item.selected).map(item => ({amount: item.amount, foodId: item.id}));
-		dispatch({type: 'updateDetail', object: {...item, meals: mealEntries}});
+		updateItem({field: 'meals', value: mealEntries})
 	}
 
 	const createCheckHandler = index => () => {
@@ -68,4 +68,12 @@ function MealDetailPanel(props) {
 	);
 }
 
-export default MealDetailPanel;
+const mapStateToProps = state => {
+	const getServingSize = food => state.servingSizes.find(size => size.id === food.servingSizeId);
+	return {
+		foodList: state.foods.map(food => ({...food, amountLabel: getServingSize(food).valueLabel})),
+		item: state.detail.item,
+	};
+};
+
+export default connect(mapStateToProps, { updateItem })(MealDetailPanel);

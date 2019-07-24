@@ -1,14 +1,15 @@
 import React from 'react';
-
+import { connect } from 'react-redux';
 import { AppBar, Toolbar, Tabs, Tab, Button, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
+
+import { selectTab } from './viewReducer';
+import { newItem } from './detailReducer';
 import FoodList from './FoodList';
+import views from './screenDefinitions';
 import MealContainer from './MealContainer';
 import DetailDialog from './DetailDialog';
-import FoodDetailPanel from './FoodDetailPanel';
-import MealDetailPanel from './MealDetailPanel';
-import { useDispatch } from './State';
 import { ReactComponent as Arrow } from './arrow.svg';
 
 const useStyles = makeStyles(theme => {
@@ -54,33 +55,25 @@ function emptyContent(text) {
 	);
 }
 
-export default function ViewRoot(props) {
+const viewMap = {
+	'food': <FoodList elevation={1} />,
+	'meal': <MealContainer />
+}
+
+function ViewRoot(props) {
 	const classes = useStyles();
-	const dispatch = useDispatch();
 
-	const { views, state } = props;
+	const { contentEmpty, selectedTab, selectedView, buttonLabel, emptyText, selectTab, newItem } = props;
 
-	const foodView = state.foods.length === 0 ? emptyContent('Add new foods here!') :
-		<FoodList elevation={1} items={state.foods} servingSizes={state.servingSizes} />;
+	const contentView = contentEmpty ? emptyContent(emptyText) : viewMap[selectedView];
 
-	const mealView = state.meals.length === 0 ? emptyContent('Add new meals here!') : <MealContainer items={state.meals}/>;
-
-	let detailContent = null;
-	if(state.detail) {
-		detailContent = state.selectedTab === 0 ?
-			<FoodDetailPanel item={state.detail.object} servingSizes={state.servingSizes} /> :
-			<MealDetailPanel foodList={state.foods} item={state.detail.object} />
-	}
-
-
-	const onTabChange = (e, newValue) => dispatch({type: 'selectTab', value: newValue});
-	const onPrimaryAction = () => dispatch({type: 'primaryAction'});
+	const onTabChange = (e, newValue) => selectTab(newValue);
 	return (
 		<React.Fragment>
 			<AppBar position="static" color="default" elevation={0} className={classes.appBar}>
 				<Toolbar variant="dense" className={classes.toolbar} disableGutters>
 					<Tabs
-						value={state.selectedTab}
+						value={selectedTab}
 						onChange={onTabChange}
 						indicatorColor="primary"
 						textColor="primary"
@@ -88,19 +81,30 @@ export default function ViewRoot(props) {
 					>
 						{views.map(view => <Tab label={view.label} key={'tabs-' + view.view} />)}
 					</Tabs>
-					<Button variant="contained" color="primary" onClick={onPrimaryAction}>{views[state.selectedTab].buttonLabel}</Button>
+					<Button variant="contained" color="primary" onClick={() => newItem(selectedView)}>{buttonLabel}</Button>
 				</Toolbar>
 			</AppBar>
 			<div className={classes.scrollContainer}>
 				<div className={classes.tabContentWrapper}>
 					<div className={classes.tabContent}>
-						{state.selectedTab === 0 ? foodView : mealView}
+						{contentView}
 					</div>
 				</div>
 			</div>
-			<DetailDialog size={state.selectedTab === 0 ? 'xs' : 'sm'} item={state.detail}>
-				{detailContent}
-			</DetailDialog>
+			<DetailDialog />
 		</React.Fragment>
 	);
 }
+
+const mapStateToProps = state => {
+	const selectedTab = state.view.selectedTab;
+	return {
+		contentEmpty: (state.view.selectedTab === 0 ? state.foods : state.meals).length === 0,
+		selectedTab: selectedTab,
+		selectedView: views[selectedTab].view,
+		buttonLabel: views[selectedTab].buttonLabel,
+		emptyText: views[selectedTab].emptyText
+	};
+}
+
+export default connect(mapStateToProps, { selectTab, newItem })(ViewRoot);

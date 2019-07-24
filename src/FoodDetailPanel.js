@@ -1,16 +1,14 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 import { Grid, TextField, InputAdornment, Select, MenuItem, FormControl, InputLabel } from '@material-ui/core';
 
 import CalorieDisplay from './CalorieDisplay';
-import { useDispatch } from './State';
+import { updateItem } from './detailReducer';
 
 
 function FoodDetailPanel(props) {
-	const dispatch = useDispatch();
-
-	const { item, servingSizes } = props;
-
+	const { item, servingSizes, updateItem } = props;
 	if (!item) return null;
 
 	const createHandler = (name, isFloat) => event => {
@@ -21,7 +19,7 @@ function FoodDetailPanel(props) {
 				throw Error(`Unable to parse value ${event.target.value}`);
 			}
 		}
-		dispatch({type: 'updateDetail', object: {...item, [name]: value}});
+		updateItem({field: name, value: value});
 	}
 
 	return (
@@ -91,4 +89,11 @@ function FoodDetailPanel(props) {
 	);
 }
 
-export default FoodDetailPanel;
+const mapStateToProps = state => {
+	return {
+		item: state.detail.item,
+		servingSizes: state.servingSizes
+	};
+}
+
+export default connect(mapStateToProps, { updateItem })(FoodDetailPanel);

@@ -1,14 +1,16 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { editItem } from './detailReducer';
 
 import { Paper, List, ListItem, ListItemText } from '@material-ui/core';
-import { useDispatch } from './State';
 
 function FoodList(props) {
-	const dispatch = useDispatch();
 
-	const onItemClicked = (event, index) => dispatch({type: 'showDetail', screen: 'foodDetail', context: props.items[index]});
+	const { items, editItem } = props;
 
-	const listItems = props.items.map((item, index) => {
+	const onItemClicked = (event, index) => editItem({item: props.items[index], type: 'food'});
+
+	const listItems = items.map((item, index) => {
 		const listItemText = !!item.title ?
 			<ListItemText primary={item.title} /> :
 			<ListItemText primary="No Title" primaryTypographyProps={{component: 'i'}} />
@@ -29,4 +31,10 @@ function FoodList(props) {
 	);
 }
 
-export default FoodList;
+const mapStateToProps = state => {
+	return {
+		items: state.foods
+	};
+}
+
+export default connect(mapStateToProps, {editItem})(FoodList);
