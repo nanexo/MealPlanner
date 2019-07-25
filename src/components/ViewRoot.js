@@ -44,14 +44,26 @@ const useStyles = makeStyles(theme => {
 			padding: '1em 0',
 			height: '100%',
 			margin: 'auto',
+		},
+		emptyContent: {
+			width: '100%',
+			display: 'flex',
+			color: '#ddd',
+			justifyContent: 'flex-end',
+			paddingRight: '3.5em',
+			height: 133
+		},
+		emptyContentText: {
+			alignSelf: 'flex-end',
+			paddingRight: '0.5em'
 		}
 	}
 });
 
-function emptyContent(text) {
+function emptyContent(text, classes) {
 	return (
-		<div className="empty-container">
-			<Typography variant="h3" component="span" color="inherit">{text}</Typography>
+		<div className={classes.emptyContent}>
+			<Typography variant="h3" component="span" color="inherit" className={classes.emptyContentText}>{text}</Typography>
 			<Arrow fill="currentColor"/>
 		</div>
 	);
@@ -68,7 +80,7 @@ function ViewRoot(props) {
 
 	const { contentEmpty, selectedTab, selectedView, buttonLabel, emptyText, selectTab, newItem } = props;
 
-	const contentView = contentEmpty ? emptyContent(emptyText) : viewMap[selectedView];
+	const contentView = contentEmpty ? emptyContent(emptyText, classes) : viewMap[selectedView];
 
 	const onTabChange = (e, newValue) => selectTab(newValue);
 	return (
