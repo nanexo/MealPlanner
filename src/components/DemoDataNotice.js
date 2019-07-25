@@ -21,12 +21,7 @@ function DemoDataNotice(props) {
 	const { open, selectTab, dismissDemoDataNotice } = props;
 	const classes = useStyles({placeAboveFab: props.placeAboveFab});
 
-	const onClose = (event, reason) => {
-		if(reason === 'clickaway')
-			return;
-
-		dismissDemoDataNotice({persist: true});
-	};
+	const onClose = () => dismissDemoDataNotice({persist: true});
 
 	const onClickLink = () => {
 		// selects settings tab

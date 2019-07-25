@@ -10,7 +10,7 @@ import { newItem } from '../../reducers/detailReducer';
 import views from '../../screenDefinitions';
 import FoodList from '../FoodList';
 import MealContainer from '../MealContainer';
-import DetailDialog from '../DetailDialog'
+import DetailDialog from './DetailDialog'
 import SettingsPanel from '../SettingsPanel';
 import DemoDataNotice from '../DemoDataNotice';
 import { ReactComponent as Arrow } from '../../vectors/arrow.svg';
