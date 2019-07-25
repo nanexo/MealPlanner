@@ -4,6 +4,11 @@ import { saveItem, deleteItem } from './detailReducer';
 const foodsSlice = createSlice({
 	slice: 'foods',
 	initialState: [],
+	reducers: {
+		updateFoods(state, action) {
+			return action.payload;
+		}
+	},
 	extraReducers: {
 		[saveItem]: (state, action) => {
 			if(action.payload.type !== 'food')
@@ -26,5 +31,6 @@ const foodsSlice = createSlice({
 	}
 });
 
-const { reducer } = foodsSlice;
+const { actions, reducer } = foodsSlice;
+export const { updateFoods } = actions;
 export default reducer;

@@ -1,6 +1,8 @@
 import { openDB } from 'idb';
 import { saveItem, deleteItem } from './reducers/detailReducer';
-import { dismissDemoDataNotice } from './reducers/settingsReducer';
+import { dismissDemoDataNotice, clearData } from './reducers/settingsReducer';
+import { updateFoods } from './reducers/foodReducer';
+import { updateMeals } from './reducers/mealReducer';
 import { demoFoods, demoMeals } from './DemoData';
 
 const foodDb = 'foods';
@@ -54,7 +56,8 @@ function storeFactory(objectStoreName) {
 				store => store.put(objectStoreName, item)
 				.then(key => store.get(objectStoreName, key))),
 		'delete': id => dbPromise.then(store => store.delete(objectStoreName, id)),
-		put: (value, key) => dbPromise.then(store => store.put(objectStoreName, value, key))
+		put: (value, key) => dbPromise.then(store => store.put(objectStoreName, value, key)),
+		clear: () => dbPromise.then(store => store.clear(objectStoreName))
 	}
 }
 
@@ -97,6 +100,14 @@ export const persist = store => next => action => {
 		}
 		case dismissDemoDataNotice.type: {
 			Promise.resolve(stores.settings.put(true, 'demoDataNoticeShown')).then(() => store.dispatch({type: action.type}));
+			break;
+		}
+		case clearData.type: {
+			Promise.resolve(
+				Promise.all([
+					stores.food.clear().then(() => store.dispatch(updateFoods([]))),
+					stores.meal.clear().then(() => store.dispatch(updateMeals([]))),
+				])).then(() => {});
 			break;
 		}
 		default:

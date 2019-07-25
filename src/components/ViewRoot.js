@@ -10,6 +10,7 @@ import views from '../screenDefinitions';
 import FoodList from './FoodList';
 import MealContainer from './MealContainer';
 import DetailDialog from './DetailDialog';
+import SettingsPanel from './SettingsPanel';
 import DemoDataNotice from './DemoDataNotice';
 import { ReactComponent as Arrow } from '../vectors/arrow.svg';
 
@@ -58,7 +59,8 @@ function emptyContent(text) {
 
 const viewMap = {
 	'food': <FoodList elevation={1} />,
-	'meal': <MealContainer />
+	'meal': <MealContainer />,
+	'settings': <SettingsPanel />
 }
 
 function ViewRoot(props) {
@@ -82,7 +84,7 @@ function ViewRoot(props) {
 					>
 						{views.map(view => <Tab label={view.label} key={'tabs-' + view.view} />)}
 					</Tabs>
-					<Button variant="contained" color="primary" onClick={() => newItem(selectedView)}>{buttonLabel}</Button>
+					{ views[selectedTab].showNewButton && <Button variant="contained" color="primary" onClick={() => newItem(selectedView)}>{buttonLabel}</Button> }
 				</Toolbar>
 			</AppBar>
 			<div className={classes.scrollContainer}>
@@ -100,8 +102,18 @@ function ViewRoot(props) {
 
 const mapStateToProps = state => {
 	const selectedTab = state.view.selectedTab;
+	const selectedView = views[selectedTab].view;
+
+	let contentEmpty = false;
+	if(selectedView === 'food') {
+		contentEmpty = state.foods.length === 0;
+	}
+	if(selectedView === 'meal') {
+		contentEmpty = state.meals.length === 0;
+	}
+
 	return {
-		contentEmpty: (state.view.selectedTab === 0 ? state.foods : state.meals).length === 0,
+		contentEmpty: contentEmpty,
 		selectedTab: selectedTab,
 		selectedView: views[selectedTab].view,
 		buttonLabel: views[selectedTab].buttonLabel,

@@ -1,16 +1,18 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { AppBar, Toolbar, BottomNavigation, BottomNavigationAction, Fab, Typography } from '@material-ui/core';
-import { Add, Storage, Fastfood } from '@material-ui/icons';
+import { Add, Storage, Fastfood, Settings } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/core/styles';
 
 
 import { selectTab } from '../../reducers/viewReducer';
 import { newItem } from '../../reducers/detailReducer';
-import FoodList from '../../components/FoodList';
 import views from '../../screenDefinitions';
-import MealContainer from '../../components/MealContainer';
-import DetailDialog from './DetailDialog'
+import FoodList from '../FoodList';
+import MealContainer from '../MealContainer';
+import DetailDialog from '../DetailDialog'
+import SettingsPanel from '../SettingsPanel';
+import DemoDataNotice from '../DemoDataNotice';
 import { ReactComponent as Arrow } from '../../vectors/arrow.svg';
 
 const useStyles = makeStyles(theme => ({
@@ -32,7 +34,7 @@ const useStyles = makeStyles(theme => ({
 	},
 	fab: {
 		position: 'fixed',
-		bottom: 'calc(1em + 56px)',
+		bottom: 'calc(1em + 55px)',
 		right: '1em'
 	},
 	scrollContainer: {
@@ -53,12 +55,14 @@ function emptyContent(text) {
 
 const viewMap = {
 	'food': <FoodList elevation={0} />,
-	'meal': <MealContainer />
+	'meal': <MealContainer />,
+	'settings': <SettingsPanel elevation={0} />
 }
 
 const iconMap = {
 	'storage': <Storage />,
-	'fastfood': <Fastfood />
+	'fastfood': <Fastfood />,
+	'settings': <Settings />
 }
 
 function ViewRoot(props) {
@@ -87,8 +91,9 @@ function ViewRoot(props) {
 			>
 				{views.map(view => <BottomNavigationAction label={view.label} icon={iconMap[view.icon]} key={'bottomNav-' + view.view} />)}
 			</BottomNavigation>
-			<Fab color="primary" aria-label="Add" className={classes.fab} onClick={() => newItem(selectedView)}><Add /></Fab>
+			{ views[selectedTab].showNewButton && <Fab color="primary" aria-label="Add" className={classes.fab} onClick={() => newItem(selectedView)}><Add /></Fab> }
 			<DetailDialog />
+			<DemoDataNotice placeAboveFab={views[selectedTab].showNewButton} />
 		</React.Fragment>
 	);
 }

@@ -16,12 +16,6 @@ body, html, #root {
 	height: 100vh;
 }
 
-span {
-	white-space: nowrap;
-	overflow: hidden;
-	text-overflow: ellipsis;
-}
-
 #root {
 	display: flex;
 	flex-direction: column;
