@@ -15,6 +15,9 @@ const foodsSlice = createSlice({
 				return;
 
 			const newItem = action.payload.item;
+			const setDefaultValue = name => {if (newItem[name] === '') newItem[name] = 0;};
+			// set 0 for empty Strings
+			['protein', 'carbs', 'fat'].forEach(setDefaultValue);
 			const foodIndex = state.findIndex(food => food.id === newItem.id);
 			if(foodIndex === -1) {
 				state.push(newItem);				

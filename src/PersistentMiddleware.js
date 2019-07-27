@@ -49,8 +49,23 @@ const dbPromise = openDB('MealPlanner', 1, {
 
 
 function storeFactory(objectStoreName) {
+
+	const getAll = async store => {
+		if(store.getAll) {
+			return await store.getAll(objectStoreName);
+		}
+
+		const result = [];
+		let cursor = await store.openCursor();
+		while (cursor) {
+			result.push(cursor.value);
+			cursor = await cursor.continue();
+		}
+		return result;
+	}
+
 	return {
-		getAll: () => dbPromise.then(store => store.getAll(objectStoreName)),
+		getAll: () => dbPromise.then(store => getAll(store)),
 		get: key => dbPromise.then(store => store.get(objectStoreName, key)),
 		save: item => dbPromise.then(
 				store => store.put(objectStoreName, item)

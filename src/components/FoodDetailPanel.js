@@ -5,18 +5,20 @@ import { Grid, TextField, InputAdornment, Select, MenuItem, FormControl, InputLa
 
 import CalorieDisplay from './CalorieDisplay';
 import { updateItem } from '../reducers/detailReducer';
+import useCheckMobile from '../useCheckMobile';
 
 
 function FoodDetailPanel(props) {
 	const { item, servingSizes, updateItem } = props;
+	const isMobile = useCheckMobile();
 	if (!item) return null;
 
 	const createHandler = (name, isFloat) => event => {
 		let value = event.target.value;
-		if(isFloat) {
-			value = parseFloat(value || 0); // treat falsy as 0
+		if(isFloat && value !== '') {
+			value = parseFloat(value);
 			if(isNaN(value)) {
-				throw Error(`Unable to parse value ${event.target.value}`);
+				value = item[name];
 			}
 		}
 		updateItem({field: name, value: value});
@@ -38,6 +40,7 @@ function FoodDetailPanel(props) {
 			</Grid>
 			<Grid item>
 				<TextField
+					type={isMobile ? 'number' : 'text'}
 					label="Protein"
 					id="protein"
 					fullWidth
@@ -50,6 +53,7 @@ function FoodDetailPanel(props) {
 			</Grid>
 			<Grid item>
 				<TextField
+					type={isMobile ? 'number' : 'text'}
 					label="Carbs"
 					id="carbs"
 					fullWidth
@@ -62,6 +66,7 @@ function FoodDetailPanel(props) {
 			</Grid>
 			<Grid item>
 				<TextField
+					type={isMobile ? 'number' : 'text'}
 					label="Fat"
 					id="fat"
 					fullWidth
