@@ -15,11 +15,8 @@ function FoodDetailPanel(props) {
 
 	const createHandler = (name, isFloat) => event => {
 		let value = event.target.value;
-		if(isFloat && value !== '') {
-			value = parseFloat(value);
-			if(isNaN(value)) {
-				value = item[name];
-			}
+		if(isFloat && isNaN(value)) {
+			value = item[name];
 		}
 		updateItem({field: name, value: value});
 	}

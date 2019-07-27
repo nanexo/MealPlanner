@@ -102,7 +102,19 @@ export const persist = store => next => action => {
 
 	switch (action.type) {
 		case saveItem.type: {
-			Promise.resolve(stores[action.payload.type].save(action.payload.item).then(
+
+			const newItem = {...action.payload.item};
+			const validate = name => {
+				if (newItem[name] === '' || isNaN(newItem[name])){
+					newItem[name] = 0;
+				}
+				else {
+					newItem[name] = parseFloat(newItem[name]);
+				}
+			};
+			['protein', 'carbs', 'fat'].forEach(validate);
+
+			Promise.resolve(stores[action.payload.type].save(newItem).then(
 				item => ({type: action.type, payload: {item: item, type: action.payload.type}})))
 			.then(store.dispatch);
 			break;
