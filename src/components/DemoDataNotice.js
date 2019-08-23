@@ -1,11 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link, IconButton, Snackbar } from "@material-ui/core";
+import { IconButton, Snackbar, Typography } from "@material-ui/core";
 import { makeStyles } from '@material-ui/core/styles';
 import CloseIcon from '@material-ui/icons/Close';
+import { Link } from 'react-router-dom'
 
-import { selectTab } from '../reducers/viewReducer';
 import { dismissDemoDataNotice } from '../reducers/settingsReducer';
+
+import store from '../applicationStore';
 
 const useStyles = makeStyles(theme => ({
 	'snackbar': {
@@ -18,18 +20,17 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function DemoDataNotice(props) {
-	const { open, selectTab, dismissDemoDataNotice } = props;
+	const { open, dismissDemoDataNotice } = props;
 	const classes = useStyles({placeAboveFab: props.placeAboveFab});
 
-	const onClose = () => dismissDemoDataNotice({persist: true});
+	const onClose = async () => {
+		try {
+			await store.settings.dismissDemoDataNotice()
+			dismissDemoDataNotice();
+		} catch {}
+	};
 
-	const onClickLink = () => {
-		// selects settings tab
-		selectTab(2);
-		onClose();
-	}
-
-	const settingsLink = <Link component="button" variant="body2" color="secondary" onClick={onClickLink}>Settings</Link>;
+	const settingsLink = <Typography component={Link} variant="body2" color="secondary" onClick={onClose} to="/settings">Settings</Typography>;
 	const messageBody = <span>We've added some demo data! If you want to clear it, go to {settingsLink}.</span>;
 	const actions = [<IconButton key="close" color="inherit" onClick={onClose}><CloseIcon /></IconButton>];
 
@@ -49,4 +50,4 @@ function DemoDataNotice(props) {
 
 const mapStateToProps = state => ({ open: state.settings.showDemoDataNotice });
 
-export default connect(mapStateToProps, { selectTab, dismissDemoDataNotice })(DemoDataNotice);
+export default connect(mapStateToProps, { dismissDemoDataNotice })(DemoDataNotice);

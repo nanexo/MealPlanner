@@ -1,15 +1,15 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { AppBar, Toolbar, Tabs, Tab, Button, Typography } from '@material-ui/core';
+import { AppBar, Toolbar, Tabs, Tab, Button, Typography, IconButton } from '@material-ui/core';
+import { ArrowBack } from '@material-ui/icons';
+import { Switch, BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { Redirect } from 'react-router'
+
 import { makeStyles } from '@material-ui/core/styles';
 
-
-import { selectTab } from '../reducers/viewReducer';
-import { newItem } from '../reducers/detailReducer';
-import views from '../screenDefinitions';
-import FoodList from './FoodList';
+import FoodPanel from './FoodPanel';
+import FoodDetailPanel from './FoodDetailPanel';
+import MealDetailPanel from './MealDetailPanel';
 import MealContainer from './MealContainer';
-import DetailDialog from './DetailDialog';
 import SettingsPanel from './SettingsPanel';
 import DemoDataNotice from './DemoDataNotice';
 import { ReactComponent as Arrow } from '../vectors/arrow.svg';
@@ -69,68 +69,100 @@ function emptyContent(text, classes) {
 	);
 }
 
-const viewMap = {
-	'food': <FoodList elevation={1} />,
-	'meal': <MealContainer />,
-	'settings': <SettingsPanel />
+const routes = [
+	{
+		path: '/database',
+		label: 'Database',
+		component: FoodPanel,
+		detailRoute: {
+			path: '/database/local/:id',
+			component: FoodDetailPanel
+		}
+	},
+	{
+		path: '/meals',
+		label: 'Meals',
+		component: MealContainer,
+		detailRoute: {
+			path: '/meals/:id',
+			component: MealDetailPanel
+		}
+	},
+	{
+		path: '/settings',
+		label: 'Settings',
+		component: SettingsPanel
+	}
+];
+
+function RootToolbarContent(props) {
+	const {location, className} = props;
+	return (
+		<Tabs
+			value={location.pathname}
+			indicatorColor="primary"
+			textColor="primary"
+			className={className}
+		>
+			{routes.map(route => <Tab component={Link} label={route.label} value={route.path} to={route.path} key={route.path} />)}
+		</Tabs>
+	);
 }
+
+function DetailToolbarContent(props) {
+	const { backPath } = props;
+	const [goBack, setGoBack] = React.useState(false);
+	const onBack = () => setGoBack(true);
+	return (
+		<React.Fragment>
+			<IconButton onClick={onBack}><ArrowBack /></IconButton>
+			<Typography variant="h6" component="h1" className={props.className}></Typography>
+			{ goBack && <Redirect to={backPath} /> }
+		</React.Fragment>
+	);
+}
+
 
 function ViewRoot(props) {
 	const classes = useStyles();
 
-	const { contentEmpty, selectedTab, selectedView, buttonLabel, emptyText, selectTab, newItem } = props;
+	const renderRootToolbar = (props) => <RootToolbarContent className={classes.toolbarContent} {...props} />;
+	const renderDetailToolbar = backPath => props => <DetailToolbarContent className={classes.toolbarContent} backPath={backPath} {...props} />;
 
-	const contentView = contentEmpty ? emptyContent(emptyText, classes) : viewMap[selectedView];
-
-	const onTabChange = (e, newValue) => selectTab(newValue);
 	return (
-		<React.Fragment>
+		<Router>
+			<Route exact path="/" render={() => <Redirect to="/database" />} />
 			<AppBar position="static" color="default" elevation={0} className={classes.appBar}>
 				<Toolbar variant="dense" className={classes.toolbar} disableGutters>
-					<Tabs
-						value={selectedTab}
-						onChange={onTabChange}
-						indicatorColor="primary"
-						textColor="primary"
-						className={classes.toolbarContent}
-					>
-						{views.map(view => <Tab label={view.label} key={'tabs-' + view.view} />)}
-					</Tabs>
-					{ views[selectedTab].showNewButton && <Button variant="contained" color="primary" onClick={() => newItem(selectedView)}>{buttonLabel}</Button> }
+					{
+						routes.map(route => (
+							<Switch key={route.path}>
+								{ route.detailRoute && <Route path={route.detailRoute.path} render={renderDetailToolbar(route.path)} /> }
+								<Route path={route.path} render={renderRootToolbar} />
+							</Switch>
+						))
+					}
+					<Route path="/database" render={() => <Button component={Link} to="/database/local/new" variant="contained" color="primary">ADD FOOD</Button>} />
+					<Route path="/meals" render={() => <Button component={Link} to="/meals/new" variant="contained" color="primary">ADD MEAL</Button>} />
 				</Toolbar>
 			</AppBar>
 			<div className={classes.scrollContainer}>
 				<div className={classes.tabContentWrapper}>
 					<div className={classes.tabContent}>
-						{contentView}
+						{
+							routes.map(route => (
+								<Switch key={route.path}>
+									{ route.detailRoute && <Route path={route.detailRoute.path} render={props => <route.detailRoute.component backPath={route.path} {...props} />} /> }
+									<Route path={route.path} component={route.component} />
+								</Switch>
+							))
+						}
 					</div>
 				</div>
 			</div>
-			<DetailDialog />
 			<DemoDataNotice />
-		</React.Fragment>
+		</Router>
 	);
 }
 
-const mapStateToProps = state => {
-	const selectedTab = state.view.selectedTab;
-	const selectedView = views[selectedTab].view;
-
-	let contentEmpty = false;
-	if(selectedView === 'food') {
-		contentEmpty = state.foods.length === 0;
-	}
-	if(selectedView === 'meal') {
-		contentEmpty = state.meals.length === 0;
-	}
-
-	return {
-		contentEmpty: contentEmpty,
-		selectedTab: selectedTab,
-		selectedView: views[selectedTab].view,
-		buttonLabel: views[selectedTab].buttonLabel,
-		emptyText: views[selectedTab].emptyText
-	};
-}
-
-export default connect(mapStateToProps, { selectTab, newItem })(ViewRoot);
+export default ViewRoot;

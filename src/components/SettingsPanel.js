@@ -2,13 +2,21 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import { Paper, List, ListItem, ListItemText, Button } from '@material-ui/core';
-import { clearData } from '../reducers/settingsReducer';
+
+import store from '../applicationStore';
+import { clearFood } from '../reducers/foodReducer';
+import { clearMeals } from '../reducers/mealReducer';
 
 function SettingsPanel(props) {
+	const { clearFood, clearMeals } = props;
 
-	const { clearData } = props;
-
-	const onClearData = () => clearData({persist: true});
+	const onClearData = async () => {
+		await store.localFood.clearItems();
+		await store.meals.clearItems();
+		await store.sfcdFoodCache.clearItems();
+		clearMeals();
+		clearFood();
+	}
 
 	return (
 		<Paper elevation={props.elevation}>
@@ -22,4 +30,4 @@ function SettingsPanel(props) {
 	);
 }
 
-export default connect(null, { clearData })(SettingsPanel);
+export default connect(null, { clearFood, clearMeals })(SettingsPanel);

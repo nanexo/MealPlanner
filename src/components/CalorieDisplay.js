@@ -9,29 +9,29 @@ import './CalorieDisplay.css';
 
 
 function CalorieDisplay(props) {
-	const data = [
-		{group: 'Protein', value: props.data.protein * 4},
-		{group: 'Carbs', value: props.data.carbs * 4},
-		{group: 'Fat', value: props.data.fat * 9}
+	const {data, size, colors} = props;
+	const pieData = [
+		{group: 'protein', value: data.protein * 4},
+		{group: 'carbs', value: data.carbs * 4},
+		{group: 'fat', value: data.fat * 9}
 	];
 
-	const cals = data.reduce((cals, macro) => cals += macro.value, 0);
+	const cals = pieData.reduce((cals, macro) => cals += macro.value, 0);
 
-	const colors = ['#0088FE', '#00C49F', '#FFBB28'];
-	const pieBackgroundStyle = {width: props.size, height: props.height, border: props.size / 10 + 'px solid #ddd', borderRadius: props.size};
+	const pieBackgroundStyle = {width: size, height: size, border: size / 10 + 'px solid #ddd', borderRadius: size};
 	return (
 		<div className="calorie-display-wrapper">	
 			<div className="calorie-display-graphic">
-				<PieChart width={props.size} height={props.size} margin={{}}>
+				<PieChart width={size} height={size} margin={{}}>
 					<Pie
-						data={data}
+						data={pieData}
 						outerRadius="100%"
 						innerRadius="80%"
 						dataKey="value"
 						isAnimationActive={false}
 					>
 						{
-							data.map((entry, index) => <Cell key={`cell-${index}`} fill={colors[index % colors.length]} />)
+							pieData.map((entry, index) => <Cell key={`cell-${index}`} fill={colors[entry.group]} />)
 						}
 					</Pie>
 				</PieChart>

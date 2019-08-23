@@ -13,26 +13,26 @@ const demoMeals = [
 		id: 0,
 		title: 'Lunch',
 		meals: [
-			{id: 0, foodId: 0, amount: 200},
-			{id: 1, foodId: 1, amount: 100},
-			{id: 2, foodId: 2, amount: 100},
-			{id: 3, foodId: 3, amount: 100},
+			{foodId: 'local-0', amount: 200},
+			{foodId: 'local-1', amount: 100},
+			{foodId: 'local-2', amount: 100},
+			{foodId: 'local-3', amount: 100},
 		]
 	},
 	{
 		id: 1,
 		title: 'Dinner',
 		meals: [
-			{id: 0, foodId: 0, amount: 200},
-			{id: 1, foodId: 4, amount: 120},
-			{id: 2, foodId: 5, amount: 50},
+			{foodId: 'local-0', amount: 200},
+			{foodId: 'local-4', amount: 120},
+			{foodId: 'local-5', amount: 50},
 		]
 	},
 	{
 		id: 2,
 		title: 'Shakes',
 		meals: [
-			{id: 0, foodId: 6, amount: 2}
+			{foodId: 'local-6', amount: 2}
 		]
 	}
 ];

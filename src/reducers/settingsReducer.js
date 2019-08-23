@@ -4,7 +4,7 @@ const settingsSlice = createSlice({
 	slice: 'settings',
 	initialState: {},
 	reducers: {
-		dismissDemoDataNotice(state, action) {
+		dismissDemoDataNotice(state) {
 			state.showDemoDataNotice = false;
 		},
 		clearData(state, action) {}

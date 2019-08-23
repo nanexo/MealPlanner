@@ -1,36 +1,28 @@
 import { createSlice } from 'redux-starter-kit';
-import { saveItem, deleteItem } from './detailReducer';
 
+const getInitialState = () => ({local: [], sfcd: []});
 const foodsSlice = createSlice({
 	slice: 'foods',
-	initialState: [],
+	initialState: getInitialState(),
 	reducers: {
-		updateFoods(state, action) {
-			return action.payload;
-		}
-	},
-	extraReducers: {
-		[saveItem]: (state, action) => {
-			if(action.payload.type !== 'food')
-				return;
-
-			const newItem = action.payload.item;
-			const foodIndex = state.findIndex(food => food.id === newItem.id);
-			if(foodIndex === -1) {
-				state.push(newItem);				
+		putFood(state, action) {
+			const { item, source } = action.payload;
+			const foodIndex = state.local.findIndex(food => food.id === item.id);
+			if(foodIndex !== -1) {
+				state[source][foodIndex] = item;
 			} else {
-				state[foodIndex] = newItem;
+				state[source].push(item);
 			}
 		},
-		[deleteItem]: (state, action) => {
-			if(action.payload.type !== 'food')
-				return;
-
-			return state.filter(food => food.id !== action.payload.id);
+		deleteFood(state, action) {
+			return {...state, local: state.local.filter(food => food.id !== action.payload.id)};
+		},
+		clearFood(state, action) {
+			return getInitialState();
 		}
 	}
 });
 
 const { actions, reducer } = foodsSlice;
-export const { updateFoods } = actions;
+export const { putFood, deleteFood, clearFood } = actions;
 export default reducer;

@@ -1,11 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import { Paper, Grid, Divider, List, ListItem, ListItemText, Typography, Button, Collapse, Box, ButtonBase } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 import MacrosPanel from './MacrosPanel';
-import { editItem } from '../reducers/detailReducer';
 
 const useStyles = makeStyles(theme => ({
 	cardPadding: {
@@ -21,7 +21,7 @@ function MealCard(props) {
 	const [expanded, setExpanded] = React.useState(false);
 	const classes = useStyles();
 
-	const { meal, macroTotals, editItem, getTitle, getAmountLabel } = props;
+	const { meal, macroTotals, getTitle, getAmountLabel } = props;
 
 	const mealEntries = meal.meals.map((mealEntry, index) => {
 		return (
@@ -32,7 +32,6 @@ function MealCard(props) {
 	});
 
 	const onExpandClicked = () => setExpanded(!expanded);
-	const onMealCardClicked = () => editItem({item: meal, type: 'meal'});
 
 	return (
 		<Paper>
@@ -41,7 +40,7 @@ function MealCard(props) {
 					<Typography variant="h6" component="h2" className={classes.cardPadding}>{meal.title}</Typography>
 				</Grid>
 				<Grid item>
-					<ButtonBase onClick={onMealCardClicked}>
+					<ButtonBase component={Link} to={'/meals/'+meal.id}>
 						<Grid container direction="column">
 							<Grid item className={classes.cardPadding}>
 								<MacrosPanel data={macroTotals} size={200} />
@@ -68,8 +67,20 @@ function MealCard(props) {
 
 
 const mapStateToProps = (state, ownProps) => {
-	const getFoodItem = id => state.foods.find(food => food.id === id);
-	const getServingSize = food => state.servingSizes.find(size => size.id === food.servingSizeId);
+	const getFoodItem = id => {
+		let [db, foodId] = id.split('-');
+		foodId = parseInt(foodId);
+		return state.foods[db].find(food => food.id === foodId);
+	}
+	const getServingSize = food => {
+		let servingSize = state.servingSizes.find(size => size.id === food.servingSizeId);
+		if(!servingSize) {
+			// default to first
+			servingSize = state.servingSizes[0];
+		}
+		return servingSize;
+		
+	}
 	
 	const sumFunc = name => {
 		return (agg, item) => {
@@ -96,4 +107,4 @@ const mapStateToProps = (state, ownProps) => {
 }
 
 
-export default connect(mapStateToProps, { editItem })(MealCard);
+export default connect(mapStateToProps)(MealCard);
