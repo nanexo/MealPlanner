@@ -14,6 +14,8 @@ import SettingsPanel from './SettingsPanel';
 import DemoDataNotice from './DemoDataNotice';
 import { ReactComponent as Arrow } from '../vectors/arrow.svg';
 
+const basePath = process.env.NODE_ENV === 'production' ? process.env.REACT_APP_BASE_PATH : '';
+
 const useStyles = makeStyles(theme => {
 	const appDimensions = {
 		width: `calc(100% - ${theme.spacing(2)}px)`,
@@ -130,7 +132,7 @@ function ViewRoot(props) {
 	const renderDetailToolbar = backPath => props => <DetailToolbarContent className={classes.toolbarContent} backPath={backPath} {...props} />;
 
 	return (
-		<Router>
+		<Router basename={basePath}>
 			<Route exact path="/" render={() => <Redirect to="/database" />} />
 			<AppBar position="static" color="default" elevation={0} className={classes.appBar}>
 				<Toolbar variant="dense" className={classes.toolbar} disableGutters>
